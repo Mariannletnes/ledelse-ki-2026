@@ -3,38 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KI som læringsressurs – Planlegging og inkludering</title>
+<title>KI som læringsressurs – Profesjonsfaglig støtte</title>
 <style>
-  :root { --navy: #1E2761; --navy-dark: #161e4e; --green: #1D9E75; --green-light: #5DCAA5; --bg: #F0F2F7; --text: #1a1a2e; --muted: #5a6080; }
+  :root { --navy: #1E2761; --navy-dark: #161e4e; --green: #1D9E75; --green-light: #5DCAA5; --bg: #F0F2F7; --text: #1a1a2e; --muted: #5a6080; --red: #C0392B; --red-light: #F5C6C2; --red-border: #E88080; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+
   .header { background: var(--navy); padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
   .kicker { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green-light); font-weight: 600; }
   .slide-counter { font-size: 0.78rem; color: rgba(255,255,255,0.45); }
-  .body { flex: 1; padding: 32px 48px 24px; display: flex; flex-direction: column; gap: 20px; max-width: 1200px; width: 100%; margin: 0 auto; }
+
+  .body { flex: 1; padding: 28px 40px 20px; display: flex; flex-direction: column; gap: 18px; max-width: 1300px; width: 100%; margin: 0 auto; }
+
   .reveal { opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s linear 0.45s; }
   .reveal.visible { opacity: 1; visibility: visible; transform: translateY(0); transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s; }
-  .slide-title { font-size: 1.8rem; font-weight: 800; color: var(--navy); }
-  .slide-sub { font-size: 1rem; color: var(--muted); margin-top: 4px; }
-  .two-dim { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .dim-block { display: flex; flex-direction: column; gap: 12px; }
-  .dim-header { display: flex; align-items: center; gap: 12px; padding-bottom: 10px; border-bottom: 2px solid var(--green-light); }
-  .dim-icon { font-size: 1.6rem; }
-  .dim-name { font-size: 1.2rem; font-weight: 800; color: var(--navy); }
-  .dim-tagline { font-size: 0.82rem; font-style: italic; color: var(--muted); }
-  .dim-intro { font-size: 0.88rem; color: var(--text); line-height: 1.65; }
-  .mu-utf { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .mu-box { border-radius: 10px; padding: 14px 16px; }
+
+  .slide-title { font-size: 1.3rem; font-weight: 800; color: var(--navy); letter-spacing: 0.04em; text-transform: uppercase; }
+  .slide-sub { font-size: 0.95rem; color: var(--muted); margin-top: 4px; }
+
+  /* Tre kolonner */
+  .three-dim { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+  .dim-block { display: flex; flex-direction: column; gap: 11px; }
+
+  .dim-header { display: flex; align-items: center; gap: 14px; padding-bottom: 10px; border-bottom: 2px solid var(--green-light); }
+  .dim-header.right { flex-direction: row-reverse; }
+
+  .dim-img { width: 62px; height: 62px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid var(--green-light); box-shadow: 0 2px 8px rgba(30,39,97,0.12); }
+
+  .dim-name { font-size: 1.05rem; font-weight: 800; color: var(--navy); }
+  .dim-tagline { font-size: 0.78rem; font-style: italic; color: var(--muted); }
+  .dim-intro { font-size: 0.83rem; color: var(--text); line-height: 1.65; }
+
+  .mu-utf { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .mu-box { border-radius: 10px; padding: 12px 14px; }
   .mu-box.mulighet { background: #E8FAF4; border: 1.5px solid #9FE1CB; }
   .mu-box.utfordring { background: #FFF8E8; border: 1.5px solid #F5C96E; }
-  .mu-box h4 { font-size: 0.76rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 7px; }
+  .mu-box.kan { background: #E8FAF4; border: 1.5px solid #9FE1CB; }
+  .mu-box.kan-ikke { background: #FDECEA; border: 1.5px solid var(--red-border); }
+  .mu-box h4 { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 6px; }
   .mu-box.mulighet h4 { color: var(--green); }
   .mu-box.utfordring h4 { color: #B8860B; }
-  .mu-box ul { padding-left: 14px; }
-  .mu-box li { font-size: 0.80rem; color: var(--text); line-height: 1.6; margin-bottom: 3px; }
-  .impl-box { background: var(--navy-dark); border-radius: 10px; padding: 16px 22px; color: #fff; font-size: 0.85rem; line-height: 1.65; }
+  .mu-box.kan h4 { color: var(--green); }
+  .mu-box.kan-ikke h4 { color: var(--red); }
+  .mu-box ul { padding-left: 13px; }
+  .mu-box li { font-size: 0.76rem; color: var(--text); line-height: 1.6; margin-bottom: 3px; }
+
+  /* Vanlig impl-boks */
+  .impl-box { background: var(--navy-dark); border-radius: 10px; padding: 14px 18px; color: #fff; font-size: 0.81rem; line-height: 1.65; }
   .impl-box strong { color: var(--green-light); }
-  .impl-box .impl-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green-light); margin-bottom: 6px; }
+  .impl-box .impl-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green-light); margin-bottom: 6px; }
+
+  /* AI Act impl-boks — rød aksent */
+  .impl-box.aiact { background: #1a0a0a; border: 1.5px solid var(--red-border); }
+  .impl-box.aiact .impl-title { color: #F5A0A0; }
+  .impl-box.aiact strong { color: #F5A0A0; }
+  .impl-box.aiact a { color: #F5A0A0; text-underline-offset: 3px; }
+  .impl-box.aiact a:hover { color: #fff; }
+
   .nav-bar { background: white; border-top: 1.5px solid #e0e4f0; padding: 16px 48px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
   .nav-bar a { border-radius: 50px; padding: 10px 24px; font-size: 0.88rem; font-weight: 600; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center; transition: background 0.2s; }
   .btn-prev { background: transparent; border: 2px solid var(--navy); color: var(--navy); }
@@ -42,6 +67,7 @@
   .btn-next { background: var(--navy); color: #fff; }
   .btn-next:hover { background: var(--navy-dark); }
   .step-hint { font-size: 0.76rem; color: var(--muted); }
+
   .home-btn { position: fixed; top: 14px; right: 20px; z-index: 100; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: #fff; text-decoration: none; }
   .home-btn svg { width: 16px; height: 16px; }
 </style>
@@ -54,22 +80,22 @@
 
 <div class="header">
   <span class="kicker">KI som læringsressurs · 3 av 3</span>
-  <span class="slide-counter">Planlegging og inkludering</span>
+  <span class="slide-counter">Profesjonsfaglig støtte</span>
 </div>
 
 <div class="body">
 
   <div class="reveal visible" id="s0">
-    <h1 class="slide-title">Hva kan KI gjøre med undervisnings-, lære- og vurderingsprosessen?</h1>
-    <p class="slide-sub">To dimensjoner: didaktisk planlegging og inkluderende praksis</p>
+    <h1 class="slide-title">Profesjonsfaglig støtte — KI i lærerens eget arbeid</h1>
+    <p class="slide-sub">Tre dimensjoner: didaktisk planlegging, inkluderende praksis og vurdering</p>
   </div>
 
-  <div class="two-dim">
+  <div class="three-dim">
 
     <!-- PLANLEGGING -->
     <div class="dim-block">
       <div class="dim-header reveal" id="s1">
-        <span class="dim-icon">🧭</span>
+        <img src="bilder/Planlegging.png" alt="Planlegging" class="dim-img">
         <div>
           <div class="dim-name">Didaktisk planlegging</div>
           <div class="dim-tagline">KI som sparringspartner for læreren</div>
@@ -77,7 +103,7 @@
       </div>
 
       <p class="dim-intro reveal" id="s2">
-        KI kan fungere som en didaktisk sparringspartner for læreren — i planleggingen av undervisning, utforming av læringsmål, tilpassing av innhold og design av vurderingsopplegg. Dette frigjør tid til det som bare læreren kan gjøre: den gode samtalen og det relasjonelle møtet med eleven.
+        KI kan fungere som en didaktisk sparringspartner i planleggingen av undervisning, utforming av læringsmål, tilpassing av innhold og design av vurderingsopplegg.<br><br>Dette frigjør tid til det som bare læreren kan gjøre: den gode samtalen og det relasjonelle møtet med eleven.
       </p>
 
       <div class="mu-utf reveal" id="s3">
@@ -85,7 +111,7 @@
           <h4>Muligheten</h4>
           <ul>
             <li>Idémyldring: varierte aktiviteter tilpasset ulike læringsstiler</li>
-            <li>Bryte ned læreplanmål til konkrete, oppnåelige læringsmål</li>
+            <li>Bryte ned læreplanmål til konkrete læringsmål</li>
             <li>Tilpasse fagtekster til dialoger, rollespill eller forenklede forklaringer</li>
             <li>Lage utkast til vurderingskriterier og egenvurderingsskjemaer</li>
           </ul>
@@ -95,21 +121,22 @@
           <ul>
             <li>KI kjenner ikke elevene — læreren må alltid justere og eie planleggingen</li>
             <li>Faren er at læreren delegerer det pedagogiske skjønnet til algoritmen</li>
-            <li>KI-genererte planer kan mangle den faglige og etiske dybden</li>
+            <li>KI-genererte planer kan mangle faglig og etisk dybde</li>
           </ul>
         </div>
       </div>
 
       <div class="impl-box reveal" id="s4">
         <div class="impl-title">Implikasjoner for skolen</div>
-        Bruk KI til <strong>rutineoppgaver i planleggingen</strong> — spar tid til menneskemøtene. KI kan hjelpe med strukturen, men det pedagogiske skjønnet, kjennskap til elevene og de faglige valgene tilhører læreren. Vær transparent om bruken.
+        Bruk KI til <strong>rutineoppgaver i planleggingen</strong> — spar tid til menneskemøtene.<br><br>
+        KI kan hjelpe med strukturen, men det pedagogiske skjønnet, kjennskap til elevene og de faglige valgene tilhører læreren.
       </div>
     </div>
 
     <!-- INKLUDERING -->
     <div class="dim-block">
       <div class="dim-header reveal" id="s5">
-        <span class="dim-icon">🌍</span>
+        <img src="bilder/Inkulering.png" alt="Inkluderende praksis" class="dim-img">
         <div>
           <div class="dim-name">Inkluderende praksis</div>
           <div class="dim-tagline">KI som brobygger</div>
@@ -117,7 +144,7 @@
       </div>
 
       <p class="dim-intro reveal" id="s6">
-        KI kan senke terskelen for deltakelse og gjøre fagstoffet tilgjengelig for elever med ulike forutsetninger — gjennom tilpasning av lesbarhet, oversettelse, multimodalt innhold og personlig støtte. Dette er kanskje det området der KI kan ha størst positiv innvirkning på likeverd i skolen.
+        KI kan senke terskelen for deltakelse og gjøre fagstoffet tilgjengelig for elever med ulike forutsetninger.<br><br>Dette er kanskje det området der KI kan ha størst positiv innvirkning på likeverd i skolen.
       </p>
 
       <div class="mu-utf reveal" id="s7">
@@ -126,15 +153,14 @@
           <ul>
             <li>Tilpasset lesbarhet: forenkle tekster til ulike språknivåer på sekunder</li>
             <li>Umiddelbar oversettelse — bygge bro mellom morsmål og opplæringsspråk</li>
-            <li>Multimodalt innhold: bilder, lyd og video for elever med lese-/skrivevansker</li>
-            <li>Personlig støtte: skreddersydde øvingsoppgaver basert på elevens interesser og nivå</li>
+            <li>Multimodalt innhold for elever med lese-/skrivevansker</li>
           </ul>
         </div>
         <div class="mu-box utfordring">
           <h4>Utfordringen</h4>
           <ul>
             <li>KI-støtte kan bli en sovepute — eleven får svaret uten å ha gjort arbeidet</li>
-            <li>Tilpasning kan forsterke segregering fremfor inkludering hvis det ikke brukes bevisst</li>
+            <li>Tilpasning kan forsterke segregering fremfor inkludering</li>
             <li>Algoritmisk bias — KI reflekterer majoritetsforståelser og kan overse minoritetsperspektiver</li>
           </ul>
         </div>
@@ -142,7 +168,51 @@
 
       <div class="impl-box reveal" id="s8">
         <div class="impl-title">Implikasjoner for skolen</div>
-        KI kan åpne skolen for elever som tidligere har blitt stengt ute av språk, lesevansker eller manglende forkunnskaper. Men <strong>læreren må designe bruken</strong> — slik at KI-støtten bygger kapasitet og eierskap hos eleven, ikke erstatter innsatsen.
+        KI kan åpne skolen for elever som tidligere har blitt stengt ute av språk, lesevansker eller manglende forkunnskaper.<br><br>
+        Men <strong>læreren må designe bruken</strong> — slik at KI-støtten bygger kapasitet og eierskap hos eleven, ikke erstatter innsatsen.
+      </div>
+    </div>
+
+    <!-- VURDERING -->
+    <div class="dim-block">
+      <div class="dim-header right reveal" id="s9">
+        <img src="bilder/Vurdering.png" alt="Vurdering" class="dim-img">
+        <div>
+          <div class="dim-name">Vurdering</div>
+          <div class="dim-tagline">Å bli sett, ikke bare målt</div>
+        </div>
+      </div>
+
+      <p class="dim-intro reveal" id="s10">
+        KI kan støtte vurdering for læring — men bare når personvernet og åndsverkloven er ivaretatt.<br><br>Elevtekster er personopplysninger <em>og</em> åndsverk. De kan ikke deles med eksterne KI-verktøy uten databehandleravtale og samtykke — og gratisverktøy skal ikke brukes.
+      </p>
+
+      <div class="mu-utf reveal" id="s11">
+        <div class="mu-box kan">
+          <h4>Læreren kan</h4>
+          <ul>
+            <li>Bruke KI innebygd i Feide-godkjente plattformer (Copilot, NDLA)</li>
+            <li>Be KI lage rubrikker og vurderingskriterier — ingen elevdata inn</li>
+            <li>Anonymisere egne observasjonsnotater og analysere mønstre</li>
+            <li>Bruke en Kommunal KI-portal der elevdata aldri forlater skolens systemer</li>
+          </ul>
+        </div>
+        <div class="mu-box kan-ikke">
+          <h4>Læreren kan ikke</h4>
+          <ul>
+            <li>Lime inn elevtekster i ChatGPT eller gratisverktøy — GDPR + åndsverkloven</li>
+            <li>La KI sette karakterer eller ta endelige vurderingsbeslutninger</li>
+            <li>Delegere det faglige og etiske skjønnet til en algoritme</li>
+            <li>Ta i bruk KI-verktøy skoleeier ikke har godkjent og DPIA-vurdert</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="impl-box aiact reveal" id="s12">
+        <div class="impl-title">Dette er en lederbeslutning — ikke lærerens ansvar alene</div>
+        Før KI tas i bruk med elevdata, må skoleeier gjennomføre en <strong>DPIA</strong> (personvernkonsekvensvurdering) og inngå databehandleravtale med leverandøren. Gratisverktøy skal ikke brukes.<br><br>
+        En <strong>Kommunal KI-portal</strong> — der kommunen setter opp en mur mellom eleven og språkmodellen via API — gir kontrollert tilgang uten elevinnlogging, og gjør DPIA-en enklere.<br><br>
+        <a href="https://www.udir.no/kvalitet-og-kompetanse/digitalisering-skole/kunstig-intelligens-ki-i-skolen/personvern-ki/" target="_blank" rel="noopener">Udir: Ta hensyn til personvernet ved bruk av KI →</a>
       </div>
     </div>
 
@@ -153,11 +223,11 @@
 <div class="nav-bar">
   <a class="btn-prev" href="ki_visualisering_simulering.html">← Visualisering og simulering</a>
   <span class="step-hint" id="hint">→ neste avduking &nbsp;·&nbsp; Esc → forsiden</span>
-  <a class="btn-next" href="ki_avslutning.html">Tre hovedpoenger →</a>
+  <a class="btn-next" href="ki_fra_forskning.html">Fra forskning →</a>
 </div>
 
 <script>
-const steps = ['s1','s2','s3','s4','s5','s6','s7','s8'];
+const steps = ['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12'];
 let current = -1;
 function next() {
   if (current < steps.length - 1) {
