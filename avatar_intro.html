@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Å lære med maskiner</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    background: #0a0f2e;
+    overflow: hidden;
+  }
+
+  .slide {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+  }
+
+  /* VENSTRE: tekst */
+  .left {
+    padding: 56px 56px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #0a0f2e;
+    position: relative;
+    z-index: 2;
+  }
+
+  .main-title {
+    font-size: 46px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.12;
+    margin-bottom: 10px;
+  }
+
+  .sub-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    margin-bottom: 44px;
+  }
+
+  /* Tekstblokker — visibility:hidden holder plassen */
+  .text-block {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.6s ease, transform 0.6s ease, visibility 0s linear 0.6s;
+    margin-bottom: 20px;
+  }
+  .text-block.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity 0.6s ease, transform 0.6s ease, visibility 0s;
+  }
+
+  .block-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.40);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .block-text {
+    font-size: 15px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.65;
+  }
+
+  .undersøker-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.40);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .bullet {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 15px;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+  .bullet::before {
+    content: "→";
+    color: #5DCAA5;
+    flex-shrink: 0;
+    font-size: 13px;
+    margin-top: 3px;
+  }
+
+  /* HØYRE: video */
+  .right {
+    position: relative;
+    background: #060b1a;
+    overflow: hidden;
+  }
+  .right video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .right::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 80px;
+    height: 100%;
+    background: linear-gradient(to right, #0a0f2e, transparent);
+    z-index: 2;
+  }
+  .did-badge {
+    position: absolute;
+    bottom: 18px;
+    left: 24px;
+    background: rgba(0,0,0,0.50);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+    z-index: 3;
+  }
+
+  /* Tilbake-knapp — nederst venstre over hele sliden */
+  .back-btn {
+    position: absolute;
+    bottom: 28px;
+    left: 56px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.60);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 20px;
+    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,0.18);
+    transition: background 0.2s, color 0.2s;
+    z-index: 10;
+  }
+  .back-btn:hover {
+    background: rgba(255,255,255,0.16);
+    color: #fff;
+  }
+  .home-btn {
+    position: fixed;
+    top: 14px;
+    right: 20px;
+    z-index: 100;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.22);
+    color: #fff;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .home-btn:hover { background: rgba(255,255,255,0.22); }
+  .home-btn svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+<a class="home-btn" href="index.html" title="Forsiden">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/>
+    <path d="M9 21V12h6v9"/>
+  </svg>
+</a>
+<div class="slide">
+
+  <div class="left">
+    <div class="main-title">Å lære med maskiner</div>
+    <div class="sub-title">Hybrid intelligens og epistemisk agentskap i<br>elevers og læreres møte med generativ KI</div>
+
+    <!-- b1 + b2 vises SAMTIDIG og TIDLIG (10 sek / første trykk) -->
+    <div class="text-block" id="b1">
+      <div class="block-label">Mål</div>
+      <div class="block-text">Utforske og utvikle pedagogisk praksis for bruk av KI i skolen, i tett samarbeid med lærere og elever.</div>
+    </div>
+
+    <div class="text-block" id="b2">
+      <div class="block-label">Praksisnær metode</div>
+      <div class="block-text">Praksisnær og skolebasert forskning med fem partnerskoler.</div>
+    </div>
+
+    <!-- b3: 28 sek — Samspill mellom lærer... -->
+    <div class="text-block" id="b3">
+      <div class="undersøker-label">Vi undersøker blant annet</div>
+      <div class="bullet">Samspillet mellom lærer, elev og KI.</div>
+    </div>
+
+    <!-- b4: 32 sek — Påvirkning... -->
+    <div class="text-block" id="b4">
+      <div class="bullet">Påvirkningen på læring, danning og vurderingspraksis.</div>
+    </div>
+
+    <!-- b5: 38 sek — Utvikling av... -->
+    <div class="text-block" id="b5">
+      <div class="bullet">Utvikling av god pedagogisk og etisk praksis.</div>
+    </div>
+  </div>
+
+  <div class="right">
+    <video id="avatar-video" autoplay playsinline>
+      <source src="presentasjon_av_a_lære_med_maskiner.mp4" type="video/mp4">
+    </video>
+    <div class="did-badge">D-iD</div>
+  </div>
+
+  <a class="back-btn" href="index.html">← Forsiden</a>
+
+</div>
+
+<script>
+  // Tidsstempler: b1+b2 simultant tidlig, deretter 28/32/38
+  const timings = [
+    { id: 'b1', time: 10 },
+    { id: 'b2', time: 10 },  // samme tidspunkt som b1
+    { id: 'b3', time: 28 },
+    { id: 'b4', time: 32 },
+    { id: 'b5', time: 38 },
+  ];
+
+  const video = document.getElementById('avatar-video');
+  const shown = new Set();
+
+  // Automatisk synkronisering mot video
+  video.addEventListener('timeupdate', function() {
+    const t = video.currentTime;
+    timings.forEach(item => {
+      if (t >= item.time && !shown.has(item.id)) {
+        shown.add(item.id);
+        document.getElementById(item.id).classList.add('visible');
+      }
+    });
+  });
+
+  // Manuell avduking — rekkefølge: [b1+b2 sammen], b3, b4, b5
+  const manualGroups = [
+    ['b1', 'b2'],  // Mål + Praksisnær metode samtidig
+    ['b3'],
+    ['b4'],
+    ['b5'],
+  ];
+  let manualStep = 0;
+
+  function revealNextGroup() {
+    if (manualStep < manualGroups.length) {
+      manualGroups[manualStep].forEach(id => {
+        if (!shown.has(id)) {
+          shown.add(id);
+          document.getElementById(id).classList.add('visible');
+        }
+      });
+      manualStep++;
+    }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if ([' ', 'Enter', 'ArrowRight', 'ArrowDown'].includes(e.key)) {
+      e.preventDefault();
+      revealNextGroup();
+    }
+    if (e.key === 'Escape') {
+      window.location.href = 'index.html';
+    }
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('a')) revealNextGroup();
+  });
+</script>
+</body>
+</html>

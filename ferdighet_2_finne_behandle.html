@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finne og behandle – kompetansemål LK20</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #F0F2F7; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 32px 16px; }
+  .slide { background: #FAFAFA; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.10); max-width: 1100px; width: 100%; }
+  .header { background: #1E2761; padding: 22px 32px 18px; }
+  .header-kicker { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 6px; }
+  .header h1 { font-size: 26px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+  .header-sub { font-size: 13px; color: rgba(255,255,255,0.60); font-style: italic; line-height: 1.5; }
+  .notice { background: #EAF6F0; border-left: 4px solid #1D9E75; padding: 10px 18px; margin: 16px 28px 0; border-radius: 0 6px 6px 0; font-size: 12px; color: #0a3d2e; line-height: 1.6; }
+  .body { padding: 16px 28px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .fag-card { background: #fff; border: 0.5px solid #D0D8EC; border-radius: 10px; overflow: hidden; }
+  .fag-card.practical { border-color: #9FE1CB; }
+  .fag-header { padding: 10px 14px; background: #1E2761; display: flex; align-items: center; justify-content: space-between; }
+  .fag-card.practical .fag-header { background: #0F6E56; }
+  .fag-name { font-size: 13px; font-weight: 600; color: #fff; }
+  .fag-link { font-size: 10px; color: rgba(255,255,255,0.55); text-decoration: none; }
+  .fag-link:hover { color: #fff; }
+  .trinn-group { padding: 8px 14px; border-bottom: 0.5px solid #EEF0F8; }
+  .trinn-group:last-child { border-bottom: none; }
+  .trinn-label { font-size: 9px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #9AA5B4; margin-bottom: 5px; }
+  .km { font-size: 11.5px; color: #2d3748; line-height: 1.6; padding: 3px 0; border-bottom: 0.5px solid #F4F6FB; }
+  .km:last-child { border-bottom: none; }
+  .km-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #1D9E75; margin-right: 6px; vertical-align: middle; margin-top: -2px; }
+  .km-dot-amber { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #E8A020; margin-right: 6px; vertical-align: middle; margin-top: -2px; }
+  .ingen { font-size: 11px; color: #C0392B; font-style: italic; padding: 4px 0; }
+  .nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 14px 28px 18px; gap: 10px; border-top: 0.5px solid #D0D8EC; }
+  .nav-btn { display: inline-flex; align-items: center; gap: 6px; background: #1E2761; color: #fff; text-decoration: none; font-size: 12px; font-weight: 500; padding: 9px 18px; border-radius: 50px; transition: opacity 0.2s; white-space: nowrap; }
+  .nav-btn:hover { opacity: 0.8; }
+  .nav-btn.secondary { background: transparent; color: #1E2761; border: 1px solid #1E2761; }
+  .full-width { grid-column: 1 / -1; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="header">
+    <div class="header-kicker">Ferdighetsområde 2 av 5</div>
+    <h1>Finne og behandle</h1>
+    <div class="header-sub">Tilegne seg, behandle, tolke og vurdere informasjon fra digitale kilder. Utøve kildekritikk og bruke kildehenvisning · Rammeverk for grunnleggende ferdigheter (Udir 2017)</div>
+  </div>
+
+  <div class="notice">
+    <strong>Vurdering:</strong> Dette er det best dekkede ferdighetsområdet i LK20. Norsk, samfunnsfag, naturfag, engelsk og KRLE har eksplisitte kompetansemål om kildekritikk og informasjonsinnhenting. Matematikk, musikk, kunst og håndverk er implisitte. Mat og helse og kroppsøving har svak eller ingen dekning.
+  </div>
+
+  <div class="body">
+
+    <div class="fag-card">
+      <div class="fag-header">
+        <span class="fag-name">Norsk</span>
+        <a class="fag-link" href="https://www.udir.no/lk20/nor01-07" target="_blank">↗ fagplan</a>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Etter 4. trinn</div>
+        <div class="km"><span class="km-dot"></span>Søke etter informasjon og vurdere om kilder er pålitelige</div>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Etter 7. trinn</div>
+        <div class="km"><span class="km-dot"></span>Søke etter informasjon i ulike kilder, vurdere kildenes relevans og troverdighet</div>
+        <div class="km"><span class="km-dot"></span>Lese og forstå tekster med ulike formål på skjerm og papir</div>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Etter 10. trinn</div>
+        <div class="km"><span class="km-dot"></span>Søke, velge ut og bruke faglig stoff fra digitale og andre kilder på en kritisk og etisk måte</div>
+        <div class="km"><span class="km-dot"></span>Referere til og sitere kilder på en etisk måte</div>
+      </div>
+    </div>
+
+    <div class="fag-card">
+      <div class="fag-header">
+        <span class="fag-name">Samfunnsfag</span>
+        <a class="fag-link" href="https://www.udir.no/lk20/saf01-04" target="_blank">↗ fagplan</a>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Etter 4. trinn</div>
+        <div class="km"><span class="km-dot"></span>Finne informasjon i ulike typer kilder og vurdere om informasjonen er til å stole på</div>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Etter 7. trinn</div>
+        <div class="km"><span class="km-dot"></span>Søke etter og velge ut informasjon fra ulike typer kilder og vurdere pålitelighet</div>
+        <div class="km"><span class="km-dot"></span>Utforske og forstå hvordan reklame og medier påvirker holdninger</div>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Etter 10. trinn</div>
+        <div class="km"><span class="km-dot"></span>Søke etter og kritisk vurdere informasjon fra ulike kilder, og diskutere hva som er tillit til kunnskap</div>
+        <div class="km"><span class="km-dot"></span>Reflektere over korleis algoritmar, ekkokammer og falske nyhende kan påverke kunnskap og forståing</div>
+      </div>
+    </div>
+
+    <div class="fag-card">
+      <div class="fag-header">
+        <span class="fag-name">Naturfag</span>
+        <a class="fag-link" href="https://www.udir.no/lk20/nat01-04" target="_blank">↗ fagplan</a>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Etter 4. trinn</div>
+        <div class="km"><span class="km-dot"></span>Finne informasjon om natur og naturvitenskapelige temaer fra ulike kilder</div>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Etter 7. trinn</div>
+        <div class="km"><span class="km-dot"></span>Søke etter og bruke informasjon fra ulike kilder, og vurdere påliteligheten</div>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Etter 10. trinn</div>
+        <div class="km"><span class="km-dot"></span>Bruke og vurdere faglig informasjon fra ulike kilder, og skille mellom data, hypoteser og konklusjoner</div>
+      </div>
+    </div>
+
+    <div class="fag-card">
+      <div class="fag-header">
+        <span class="fag-name">Engelsk</span>
+        <a class="fag-link" href="https://www.udir.no/lk20/eng01-05" target="_blank">↗ fagplan</a>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Etter 4. trinn</div>
+        <div class="km"><span class="km-dot"></span>Finne informasjon i engelskspråklige tekster og bruke den i eget arbeid</div>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Etter 7. trinn</div>
+        <div class="km"><span class="km-dot"></span>Finne og bruke informasjon fra ulike engelskspråklige kilder og referere til disse</div>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Etter 10. trinn</div>
+        <div class="km"><span class="km-dot"></span>Søke etter informasjon, kritisk vurdere og bruke engelskspråklige kilder på en etisk måte</div>
+      </div>
+    </div>
+
+    <div class="fag-card">
+      <div class="fag-header">
+        <span class="fag-name">KRLE</span>
+        <a class="fag-link" href="https://www.udir.no/lk20/rle01-03" target="_blank">↗ fagplan</a>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Etter 4. trinn</div>
+        <div class="km"><span class="km-dot"></span>Finne informasjon fra ulike kilder om religiøse og livssynsmessige tema</div>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Etter 7. trinn</div>
+        <div class="km"><span class="km-dot"></span>Søke etter og vurdere informasjon fra ulike kilder om religion og livssyn</div>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Etter 10. trinn</div>
+        <div class="km"><span class="km-dot"></span>Innhente, bruke og kritisk vurdere informasjon om religion, livssyn og etikk fra ulike kilder</div>
+      </div>
+    </div>
+
+    <div class="fag-card">
+      <div class="fag-header">
+        <span class="fag-name">Matematikk</span>
+        <a class="fag-link" href="https://www.udir.no/lk20/mat01-05" target="_blank">↗ fagplan</a>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Alle trinn</div>
+        <div class="km"><span class="km-dot" style="background:#E8A020"></span>Innhente og organisere data og bruke disse i beregninger og presentasjoner (statistikk)</div>
+        <div class="ingen">Ingen eksplisitte mål om kildekritikk eller informasjonsinnhenting digitalt</div>
+      </div>
+    </div>
+
+    <div class="fag-card practical">
+      <div class="fag-header">
+        <span class="fag-name">Musikk</span>
+        <a class="fag-link" href="https://www.udir.no/lk20/mus01-02" target="_blank">↗ fagplan</a>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Alle trinn</div>
+        <div class="ingen">Ingen eksplisitte mål om informasjonsinnhenting eller kildekritikk</div>
+      </div>
+    </div>
+
+    <div class="fag-card practical">
+      <div class="fag-header">
+        <span class="fag-name">Kunst og håndverk</span>
+        <a class="fag-link" href="https://www.udir.no/lk20/khv01-02" target="_blank">↗ fagplan</a>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Etter 7. og 10. trinn</div>
+        <div class="km"><span class="km-dot" style="background:#E8A020"></span>Utforske og hente inspirasjon fra kunst og design fra ulike kilder (implisitt digitalt)</div>
+      </div>
+    </div>
+
+    <div class="fag-card practical">
+      <div class="fag-header">
+        <span class="fag-name">Mat og helse</span>
+        <a class="fag-link" href="https://www.udir.no/lk20/mhe01-02" target="_blank">↗ fagplan</a>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Etter 7. trinn</div>
+        <div class="km"><span class="km-dot" style="background:#E8A020"></span>Finne og vurdere informasjon om mat og helse (kilde ikke spesifisert)</div>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Etter 10. trinn</div>
+        <div class="ingen">Ingen eksplisitte mål om digital informasjonsinnhenting</div>
+      </div>
+    </div>
+
+    <div class="fag-card practical">
+      <div class="fag-header">
+        <span class="fag-name">Kroppsøving</span>
+        <a class="fag-link" href="https://www.udir.no/lk20/kro01-05" target="_blank">↗ fagplan</a>
+      </div>
+      <div class="trinn-group">
+        <div class="trinn-label">Alle trinn</div>
+        <div class="ingen">Ingen kompetansemål om informasjonsinnhenting eller kildekritikk</div>
+      </div>
+    </div>
+
+    <div class="full-width" style="background:#EAF6F0; border:1px solid #1D9E75; border-radius:8px; padding:12px 16px; font-size:12px; color:#0a3d2e; line-height:1.65;">
+      <strong>Konklusjon for område 2:</strong> Dette er det sterkest dekkede ferdighetsområdet — men dekningsgraden er skjev. Kildekritikk og informasjonsinnhenting er eksplisitt i norsk, samfunnsfag, naturfag, engelsk og KRLE. De praktiske fagene og matematikk mangler eksplisitte mål. Og selv der det finnes mål, handler de primært om å <em>finne</em> informasjon — ikke om å forstå algoritmers rolle, filterbobler eller AI-generert innhold.
+    </div>
+
+  </div>
+
+  <div class="nav-bar">
+    <a class="nav-btn secondary" href="ferdighet_1_bruke_forstaa.html">← Område 1: Bruke og forstå</a>
+    <a class="nav-btn secondary" href="lk20_rammeverk_intro.html">Oversikt</a>
+    <a class="nav-btn" href="ferdighet_3_produsere_bearbeide.html">Område 3: Produsere og bearbeide →</a>
+  </div>
+</div>
+</body>
+</html>
