@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KI – et pedagogisk lederansvar</title>
+<style>
+  :root {
+    --navy: #1E2761;
+    --navy-dark: #161e4e;
+    --green: #1D9E75;
+    --green-light: #5DCAA5;
+    --bg: #F0F2F7;
+    --card: #FAFAFA;
+    --text: #1a1a2e;
+    --muted: #5a6080;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+
+  .slide-header { background: var(--navy); padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .kicker { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green-light); font-weight: 600; }
+  .slide-counter { font-size: 0.78rem; color: rgba(255,255,255,0.45); }
+
+  .slide-body { flex: 1; padding: 40px 48px 24px; display: flex; flex-direction: column; gap: 28px; max-width: 1100px; width: 100%; margin: 0 auto; }
+
+  .slide-title { font-size: 2.0rem; font-weight: 800; color: var(--navy); line-height: 1.15; opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s linear 0.45s; }
+  .slide-title.visible { opacity: 1; visibility: visible; transform: translateY(0); transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s; }
+
+  .slide-subtitle { font-size: 1.05rem; color: var(--muted); font-weight: 400; margin-top: 6px; opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity 0.45s ease 0.1s, transform 0.45s ease 0.1s, visibility 0s linear 0.55s; }
+  .slide-subtitle.visible { opacity: 1; visibility: visible; transform: translateY(0); transition: opacity 0.45s ease 0.1s, transform 0.45s ease 0.1s, visibility 0s; }
+
+  .source-badge { display: inline-flex; align-items: center; gap: 8px; background: #EEF0FA; border: 1.5px solid #c8cce8; border-radius: 8px; padding: 8px 14px; font-size: 0.78rem; color: var(--navy); font-weight: 500; width: fit-content; opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s linear 0.45s; }
+  .source-badge.visible { opacity: 1; visibility: visible; transform: translateY(0); transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s; }
+  .source-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+
+  /* Radialt oppsett */
+  .radial-wrap { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto auto; gap: 16px; align-items: center; position: relative; }
+  #mech-1 { grid-column: 1; grid-row: 1; }
+  #mech-2 { grid-column: 3; grid-row: 1; }
+  #mech-3 { grid-column: 3; grid-row: 2; }
+  #mech-4 { grid-column: 1; grid-row: 2; }
+
+  .figure-center { grid-column: 2; grid-row: 1 / 3; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transform: scale(1.8); transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94), visibility 0s linear 0.6s; z-index: 10; }
+  .figure-center.visible { opacity: 1; visibility: visible; transform: scale(1.8); transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94), visibility 0s; }
+  .figure-center.zoomed-out { transform: scale(1); z-index: 1; }
+  .figure-center img { width: 100%; max-width: 280px; height: auto; border-radius: 10px; }
+
+  .mechanism-card { border-radius: 14px; padding: 22px 24px; display: flex; gap: 16px; align-items: flex-start; opacity: 0; visibility: hidden; transform: scale(1.2); transition: opacity 0.5s ease, transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94), visibility 0s linear 0.5s; z-index: 5; }
+  .mechanism-card.visible { opacity: 1; visibility: visible; transform: scale(1.2); transition: opacity 0.5s ease, transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94), visibility 0s; }
+  .mechanism-card.settled { transform: scale(1); z-index: 1; }
+
+  #mech-1 { background: rgba(139,58,58,0.08);  border: 1.5px solid rgba(139,58,58,0.25); }
+  #mech-2 { background: rgba(30,58,95,0.08);   border: 1.5px solid rgba(30,58,95,0.25); }
+  #mech-3 { background: rgba(139,115,85,0.08); border: 1.5px solid rgba(139,115,85,0.25); }
+  #mech-4 { background: rgba(45,90,61,0.08);   border: 1.5px solid rgba(45,90,61,0.25); }
+  #mech-1, #mech-4 { flex-direction: row-reverse; text-align: right; }
+
+  .mechanism-num { width: 36px; height: 36px; border-radius: 50%; color: #fff; font-size: 1.0rem; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  #mech-1 .mechanism-num { background: #8B3A3A; }
+  #mech-2 .mechanism-num { background: #1E3A5F; }
+  #mech-3 .mechanism-num { background: #8B7355; }
+  #mech-4 .mechanism-num { background: #2D5A3D; }
+
+  .mechanism-text h3 { font-size: 0.97rem; font-weight: 700; color: var(--navy); margin-bottom: 5px; line-height: 1.3; }
+  .mechanism-text p { font-size: 0.83rem; color: var(--muted); line-height: 1.55; }
+
+  .nav-bar { background: white; border-top: 1.5px solid #e0e4f0; padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .nav-bar a { border-radius: 50px; padding: 10px 24px; font-size: 0.88rem; font-weight: 600; cursor: pointer; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center; transition: background 0.2s; }
+  .btn-prev { background: transparent; border: 2px solid var(--navy); color: var(--navy); }
+  .btn-prev:hover { background: #f0f2f7; }
+  .btn-next { background: var(--navy); color: #fff; }
+  .btn-next:hover { background: var(--navy-dark); }
+  .step-hint { font-size: 0.76rem; color: var(--muted); }
+
+  .home-btn { position: fixed; top: 14px; right: 20px; z-index: 100; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: #fff; text-decoration: none; transition: background 0.2s; }
+  .home-btn:hover { background: rgba(255,255,255,0.25); }
+  .home-btn svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+
+<a class="home-btn" href="index.html" title="Forsiden">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/>
+    <path d="M9 21V12h6v9"/>
+  </svg>
+</a>
+
+<div class="slide-header">
+  <span class="kicker">KI – et pedagogisk lederansvar</span>
+  <span class="slide-counter">1 / 2</span>
+</div>
+
+<div class="slide-body">
+  <div>
+    <h1 class="slide-title" id="a-title">Fire mekanismer i spill</h1>
+    <p class="slide-subtitle" id="a-sub">- når profesjonsfaglig digital kompetanse utvikles kollektivt</p>
+  </div>
+
+  <div class="radial-wrap">
+    <div class="mechanism-card" id="mech-1">
+      <div class="mechanism-num">1</div>
+      <div class="mechanism-text">
+        <h3>Felles visjon og eierskap</h3>
+        <p>Hele kollegiet må ha et delt bilde av hvorfor og hvordan KI skal inngå i undervisningen. Uten en felles retning fragmenteres praksisutvikling til enkeltinitiativ.</p>
+      </div>
+    </div>
+    <div class="figure-center" id="a-figure">
+      <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+        <img src="Firemekanismer_med_utdyping.png" alt="Fire mekanismer for kollektiv PDC – Letnes 2025">
+        <div class="source-badge" id="a-source">
+          <span class="dot"></span>
+          <a href="https://www.tandfonline.com/doi/full/10.1080/02619768.2025.2565634" target="_blank" style="color:inherit; text-decoration:none;">
+            Letnes (2025) · European Journal of Teacher Education ↗
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="mechanism-card" id="mech-2">
+      <div class="mechanism-num">2</div>
+      <div class="mechanism-text">
+        <h3>Kollektive læringsprosesser</h3>
+        <p>Kompetanseutvikling skjer ikke isolert hos den enkelte lærer. Det er i de felles refleksjonsrommene – teamtid, faggrupper, planleggingsdager – at ny praksis settes.</p>
+      </div>
+    </div>
+    <div class="mechanism-card" id="mech-4">
+      <div class="mechanism-num">4</div>
+      <div class="mechanism-text">
+        <h3>Organisatorisk støtte for bærekraft</h3>
+        <p>Strukturer og ressurser må ligge på plass: tid, mandat, kompetanse. IKT-koordinatoren kan fungere som brobygger, men bare hvis rektoren skaper rammene.</p>
+      </div>
+    </div>
+    <div class="mechanism-card" id="mech-3">
+      <div class="mechanism-num">3</div>
+      <div class="mechanism-text">
+        <h3>Observasjon og kritisk refleksjon</h3>
+        <p>Lærere må observere hverandres undervisning når KI brukes og stille kritiske spørsmål i etterkant: fremmer dette læring, eller erstatter det den?</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-bar">
+  <a class="btn-prev" href="digit_slide.html">← DIGIT</a>
+  <span class="step-hint">→ neste &nbsp;·&nbsp; ← forrige &nbsp;·&nbsp; Esc → forsiden</span>
+  <a class="btn-next" href="rektorer_ki_slide_b.html">Hva betyr dette for deg? →</a>
+</div>
+
+<script>
+const steps = [
+  ['a-title','a-sub'],  // 0
+  ['a-source-hidden'],   // 1 — placeholder, source vises ved steg 7
+  ['a-figure'],          // 2 — figur stor
+  ['mech-1'],            // 3 — figur zoomer ut, kort 1 stort
+  ['mech-2'],            // 4 — kort 1 settler, kort 2 stort
+  ['mech-3'],            // 5 — kort 2 settler, kort 3 stort
+  ['mech-4'],            // 6 — kort 3 settler, kort 4 stort
+  ['mech-4-settle'],     // 7 — kort 4 settler
+];
+let current = -1;
+
+function revealNext() {
+  if (current < steps.length - 1) {
+    current++;
+
+    // Steg 2: vis figuren stor
+    if (current === 2) {
+      document.getElementById('a-figure').classList.add('visible');
+      return;
+    }
+
+    // Steg 3: zoom figuren ut, vis kort 1 stort
+    if (current === 3) {
+      document.getElementById('a-figure').classList.add('zoomed-out');
+      document.getElementById('mech-1').classList.add('visible');
+      return;
+    }
+
+    // Steg 4-6: settler forrige kort, vis neste stort
+    if (current >= 4 && current <= 6) {
+      const prevId = steps[current - 1][0];
+      const prevEl = document.getElementById(prevId);
+      if (prevEl) prevEl.classList.add('settled');
+      // mech-1 settles spesielt
+      if (current === 4) document.getElementById('mech-1').classList.add('settled');
+      steps[current].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('visible');
+      });
+      return;
+    }
+
+    // Steg 7: settler kort 4 + vis kildehenvisning
+    if (current === 7) {
+      document.getElementById('mech-4').classList.add('settled');
+      document.getElementById('a-source').classList.add('visible');
+      return;
+    }
+
+    steps[current].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('visible');
+    });
+  }
+}
+
+function revealPrev() {
+  if (current > 0) {
+    // Tilbake fra steg 7
+    if (current === 7) {
+      document.getElementById('mech-4').classList.remove('settled');
+      current--;
+      return;
+    }
+    // Tilbake fra steg 3: zoom figuren inn igjen, skjul kort 1
+    if (current === 3) {
+      document.getElementById('a-figure').classList.remove('zoomed-out');
+      document.getElementById('mech-1').classList.remove('visible');
+      document.getElementById('mech-1').classList.remove('settled');
+      current--;
+      return;
+    }
+    // Tilbake fra steg 2: skjul figuren
+    if (current === 2) {
+      document.getElementById('a-figure').classList.remove('visible');
+      current--;
+      return;
+    }
+    // Tilbake fra steg 4-6: un-settle forrige, skjul current
+    if (current >= 4 && current <= 6) {
+      const prevId = steps[current - 1][0];
+      const prevEl = document.getElementById(prevId);
+      if (prevEl) prevEl.classList.remove('settled');
+      if (current === 4) document.getElementById('mech-1').classList.remove('settled');
+    }
+    steps[current].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) { el.classList.remove('visible'); el.classList.remove('settled'); }
+    });
+    current--;
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if ([' ','Enter','ArrowRight','ArrowDown'].includes(e.key)) { e.preventDefault(); revealNext(); }
+  if (['ArrowLeft','ArrowUp'].includes(e.key)) { e.preventDefault(); revealPrev(); }
+  if (e.key === 'Escape') location.href = 'index.html';
+});
+document.addEventListener('click', e => { if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'A') revealNext(); });
+</script>
+</body>
+</html>

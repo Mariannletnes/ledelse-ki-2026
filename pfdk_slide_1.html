@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDC – tre uløste problemer</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #F0F2F7; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 32px 16px; }
+
+  .slide { background: #FAFAFA; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.10); max-width: 1100px; width: 100%; }
+
+  .header { background: #1E2761; padding: 24px 32px 20px; }
+  .header h1 { font-size: 26px; font-weight: 600; color: #fff; line-height: 1.25; margin-bottom: 8px; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.60); font-style: italic; line-height: 1.5; }
+
+  .body { padding: 24px 28px; display: flex; flex-direction: column; gap: 16px; }
+
+  /* Avduking */
+  .reveal {
+    opacity: 0; visibility: hidden; transform: translateY(12px);
+    transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s linear 0.45s;
+  }
+  .reveal.visible {
+    opacity: 1; visibility: visible; transform: translateY(0);
+    transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s;
+  }
+
+  /* Tre problemkort */
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+  .card {
+    background: #fff; border: 0.5px solid #D0D8EC;
+    border-radius: 10px; padding: 18px 16px;
+    display: flex; flex-direction: column;
+  }
+  .num { width: 28px; height: 28px; border-radius: 50%; background: #1E2761; color: #fff; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; flex-shrink: 0; }
+  .card-title { font-size: 13px; font-weight: 700; color: #1E2761; margin-bottom: 8px; line-height: 1.35; }
+  .card-text { font-size: 11px; color: #4A5568; line-height: 1.7; flex: 1; }
+  .card-ref { font-size: 9px; color: #9AA5B4; margin-top: 12px; font-style: italic; line-height: 1.5; }
+
+  /* To konsekvenskort */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .col-card { border-radius: 10px; padding: 18px 20px; }
+  .col-card.light { background: #F4F6FB; border: 0.5px solid #B8C8E8; }
+  .col-card.dark  { background: #1E2761; }
+
+  .col-label { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+  .col-label.dk { color: #4A5568; }
+  .col-label.lt { color: rgba(255,255,255,0.45); }
+  .col-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
+  .col-title.dk { color: #1E2761; }
+  .col-title.lt { color: #fff; }
+  .col-text { font-size: 12px; line-height: 1.65; }
+  .col-text.dk { color: #4A5568; }
+  .col-text.lt { color: rgba(255,255,255,0.80); }
+
+  /* Advarsel */
+  .warning {
+    background: #FEECEB; border: 1.5px solid #C0392B;
+    border-radius: 8px; padding: 14px 18px;
+    font-size: 13px; color: #6B1A14; line-height: 1.7;
+  }
+  .warning strong { font-weight: 700; }
+
+  .source { padding: 0 28px 10px; font-size: 8.5px; color: #9AA5B4; font-style: italic; }
+
+  .nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 12px 28px 16px; gap: 10px; border-top: 0.5px solid #E0E4EF; }
+  .nav-btn { display: inline-flex; align-items: center; gap: 6px; background: #1E2761; color: #fff; text-decoration: none; font-size: 13px; font-weight: 500; padding: 10px 22px; border-radius: 50px; transition: opacity 0.2s; white-space: nowrap; }
+  .nav-btn:hover { opacity: 0.8; }
+  .nav-btn.secondary { background: transparent; color: #1E2761; border: 1.5px solid #1E2761; }
+  .nav-btn.secondary:hover { background: #EEF0FA; }
+  .hint { font-size: 10px; color: #9AA5B4; font-style: italic; text-align: center; }
+
+  .home-btn { position: fixed; top: 14px; right: 20px; z-index: 100; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(30,39,97,0.12); border: 1.5px solid rgba(30,39,97,0.25); color: #1E2761; text-decoration: none; transition: background 0.2s; }
+  .home-btn:hover { background: rgba(30,39,97,0.22); }
+  .home-btn svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+
+<a class="home-btn" href="index.html" title="Forsiden">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/>
+    <path d="M9 21V12h6v9"/>
+  </svg>
+</a>
+
+<div class="slide">
+
+  <div class="header">
+    <h1>Profesjonsfaglig digital kompetanse — tre uløste problemer</h1>
+    <div class="header-sub">PDC ble introdusert i norsk utdanningskontekst i 2013 (Tømte, Kårstein &amp; Olsen). Ti år senere er tre grunnleggende problemer fortsatt uløste.</div>
+  </div>
+
+  <div class="body">
+
+    <!-- TRYKK 1–3: De tre problemkortene -->
+    <div class="three-col">
+      <div class="card reveal" id="s1">
+        <div class="num">1</div>
+        <div class="card-title">PDC forstås som individuell kompetanse</div>
+        <div class="card-text">PDC har primært blitt konseptualisert som et sett individuelle ferdigheter og kunnskaper hos den enkelte lærer. Profesjonell læring er situert, relasjonell og ko-konstruert — ikke individuelt tilegnet.</div>
+        <div class="card-ref">Fernández-Batanero et al. 2022 · Lave &amp; Wenger 1991 · Letnes 2025</div>
+      </div>
+      <div class="card reveal" id="s2">
+        <div class="num">2</div>
+        <div class="card-title">Instrumentell forståelse dominerer</div>
+        <div class="card-text">Digitale verktøy fremstilles primært som midler for å forbedre målbare læringsutbytter. Dette reduserer digital kompetanse til tekniske ferdigheter og overser de epistemiske og kulturelle skiftene digitalisering bringer til kjernen av skolens praksis.</div>
+        <div class="card-ref">Skantz-Åberg et al. 2022 · Erstad 2022 · Pettersson 2018</div>
+      </div>
+      <div class="card reveal" id="s3">
+        <div class="num">3</div>
+        <div class="card-title">Epistemisk underskudd i forskning og policy</div>
+        <div class="card-text">Selv etter omfattende politiske initiativ er epistemiske aspekter — hvordan teknologi former kunnskapspraksis — fortsatt underadressert. Rammeverk beskriver hva PDC skal inneholde, men gir begrenset innsikt i mekanismene som faktisk utvikler det.</div>
+        <div class="card-ref">Aagaard et al. 2024 · Erstad 2022 · Pettersson 2021</div>
+      </div>
+    </div>
+
+    <!-- TRYKK 4: IKT-koordinatoren + ledelsen -->
+    <div class="two-col reveal" id="s4">
+      <div class="col-card light">
+        <div class="col-label dk">IKT-koordinatoren</div>
+        <div class="col-title dk">En mellomaktør uten formell forankring</div>
+        <div class="col-text dk">Rollen bærer et ansvar den ikke kan løfte alene. PDC utvikles ikke gjennom kurs og delegering — men gjennom felles praksis, fagfellesskap og kollektiv refleksjon.</div>
+      </div>
+      <div class="col-card dark">
+        <div class="col-label lt">Hva dette betyr for deg som rektor</div>
+        <div class="col-title lt">Bare ledelsen kan skape betingelsene</div>
+        <div class="col-text lt">Avsatt tid, felles refleksjon, digitalisering som et pedagogisk spørsmål — ikke et teknisk. KI må inn på skolens premisser, ikke leverandørenes.</div>
+      </div>
+    </div>
+
+    <!-- TRYKK 5: Advarsel -->
+    <div class="warning reveal" id="s5">
+      <strong>Med digitaliseringen</strong> designet IT-bransjen undervisningen. Elevene fikk iPader — men ikke det digitale håndverket. <strong>Med KI</strong> er faren den samme. Bare raskere.
+    </div>
+
+  </div>
+
+  <div class="source">Letnes, M.-A. (2025). European Journal of Teacher Education · Tømte, Kårstein &amp; Olsen (2013) · Tømte &amp; Wollscheid 2024</div>
+
+  <div class="nav-bar">
+    <a class="nav-btn secondary" href="pfdk_intro.html">← PDC – rammeverket</a>
+    <span class="hint" id="hint">→ neste avduking &nbsp;·&nbsp; ← forrige &nbsp;·&nbsp; Esc → forsiden</span>
+    <a class="nav-btn" href="stortingsmelding_32.html">Meld. St. 32 →</a>
+  </div>
+
+</div>
+
+<script>
+  const steps = ['s1','s2','s3','s4','s5'];
+  let current = -1;
+
+  function next() {
+    if (current < steps.length - 1) {
+      current++;
+      document.getElementById(steps[current]).classList.add('visible');
+    }
+    if (current >= steps.length - 1) {
+      document.getElementById('hint').textContent = '';
+    }
+  }
+
+  function prev() {
+    if (current >= 0) {
+      document.getElementById(steps[current]).classList.remove('visible');
+      current--;
+    }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if ([' ','Enter','ArrowRight','ArrowDown'].includes(e.key)) { e.preventDefault(); next(); }
+    if (['ArrowLeft','ArrowUp'].includes(e.key)) { e.preventDefault(); prev(); }
+    if (e.key === 'Escape') window.location.href = 'index.html';
+  });
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('a') && !e.target.closest('button')) next();
+  });
+</script>
+</body>
+</html>

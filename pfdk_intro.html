@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profesjonsfaglig digital kompetanse – rammeverket</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #F0F2F7; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 32px 16px; }
+
+  .slide { background: #FAFAFA; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.10); max-width: 1100px; width: 100%; }
+
+  .header { background: #1E2761; padding: 22px 32px 18px; }
+  .header h1 { font-size: 24px; font-weight: 600; color: #fff; margin-bottom: 5px; line-height: 1.2; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); font-style: italic; }
+
+  .body { padding: 28px 32px; display: flex; flex-direction: column; gap: 22px; }
+
+  /* Avduking */
+  .reveal {
+    opacity: 0; visibility: hidden; transform: translateY(12px);
+    transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s linear 0.45s;
+  }
+  .reveal.visible {
+    opacity: 1; visibility: visible; transform: translateY(0);
+    transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s;
+  }
+
+  /* Modell + intro */
+  .model-row {
+    display: grid; grid-template-columns: 260px 1fr; gap: 28px; align-items: center;
+  }
+  .model-row img { width: 100%; border-radius: 8px; }
+  .model-intro { display: flex; flex-direction: column; gap: 14px; }
+  .model-intro h2 { font-size: 18px; font-weight: 700; color: #1E2761; line-height: 1.3; }
+  .model-intro p { font-size: 13.5px; color: #4A5568; line-height: 1.7; }
+  .model-intro a { display: inline-block; margin-top: 4px; font-size: 12px; font-weight: 600; color: #1E2761; text-decoration: none; opacity: 0.60; }
+  .model-intro a:hover { opacity: 1; }
+
+  /* Syv områder */
+  .areas-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+
+  .area-pill {
+    background: #fff; border: 1px solid #D0D8EC; border-radius: 10px;
+    padding: 12px 14px; display: flex; flex-direction: column; gap: 5px;
+  }
+  .area-num { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #9AA5B4; }
+  .area-name { font-size: 12.5px; font-weight: 700; color: #1E2761; line-height: 1.3; }
+  .area-desc { font-size: 11px; color: #4A5568; line-height: 1.5; }
+
+  /* Siste rad — 3 kolonner for de tre siste */
+  .areas-grid-bottom { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+  /* Intro-boks */
+  .intro-box {
+    background: #EEF0FA; border-left: 4px solid #1E2761;
+    border-radius: 0 10px 10px 0; padding: 16px 20px;
+    font-size: 13px; color: #1E2761; line-height: 1.7;
+  }
+  .intro-box strong { font-weight: 700; }
+
+  /* Nav */
+  .nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 14px 28px 18px; border-top: 0.5px solid #E0E4EF; gap: 10px; }
+  .nav-btn { display: inline-flex; align-items: center; gap: 6px; background: #1E2761; color: #fff; text-decoration: none; font-size: 13px; font-weight: 500; padding: 10px 22px; border-radius: 50px; transition: opacity 0.2s; white-space: nowrap; }
+  .nav-btn:hover { opacity: 0.8; }
+  .nav-btn.secondary { background: transparent; color: #1E2761; border: 1.5px solid #1E2761; }
+  .nav-btn.secondary:hover { background: #EEF0FA; }
+  .hint { font-size: 10px; color: #9AA5B4; font-style: italic; }
+
+  /* Hjemknapp */
+  .home-btn { position: fixed; top: 14px; right: 20px; z-index: 100; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(30,39,97,0.12); border: 1.5px solid rgba(30,39,97,0.25); color: #1E2761; text-decoration: none; transition: background 0.2s; }
+  .home-btn:hover { background: rgba(30,39,97,0.22); }
+  .home-btn svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+
+<a class="home-btn" href="index.html" title="Forsiden">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/>
+    <path d="M9 21V12h6v9"/>
+  </svg>
+</a>
+
+<div class="slide">
+
+  <div class="header">
+    <h1>Profesjonsfaglig digital kompetanse (PDC)</h1>
+    <div class="header-sub">Udirs rammeverk · Introdusert i norsk utdanningskontekst av Tømte, Kårstein &amp; Olsen (2013)</div>
+  </div>
+
+  <div class="body">
+
+    <!-- TRYKK 1: Modell + intro -->
+    <div class="model-row reveal" id="s1">
+      <a href="https://www.udir.no/kvalitet-og-kompetanse/digitalisering-skole/rammeverk-larerens-profesjonsfaglige-digitale-komp/" target="_blank">
+        <img src="larerens_pfdk-modell-medtekst_750px_web-7.png" alt="PDC-modellen">
+      </a>
+      <div class="model-intro">
+        <h2>Hva er profesjonsfaglig digital kompetanse?</h2>
+        <p>PDC handler om den kompetansen lærere trenger for å bruke digitale verktøy på en faglig, pedagogisk og etisk forsvarlig måte — ikke bare tekniske ferdigheter, men en hel profesjonell praksis.</p>
+        <p>Rammeverket beskriver syv sammenvevde områder som til sammen utgjør det en lærer trenger å mestre i møte med digitalisering og KI.</p>
+        <a href="https://www.udir.no/kvalitet-og-kompetanse/digitalisering-skole/rammeverk-larerens-profesjonsfaglige-digitale-komp/" target="_blank">↗ Udirs rammeverk for PDC</a>
+      </div>
+    </div>
+
+    <!-- TRYKK 2: De syv områdene -->
+    <div class="reveal" id="s2">
+      <div class="areas-grid">
+        <div class="area-pill">
+          <div class="area-num">Område 1</div>
+          <div class="area-name">Fag og grunnleggende ferdigheter</div>
+          <div class="area-desc">Bruke digitale verktøy i faglig læring og utvikling av grunnleggende ferdigheter</div>
+        </div>
+        <div class="area-pill">
+          <div class="area-num">Område 2</div>
+          <div class="area-name">Skolen i samfunnet</div>
+          <div class="area-desc">Forstå teknologiens rolle i samfunnet og skolens demokratiske oppdrag</div>
+        </div>
+        <div class="area-pill">
+          <div class="area-num">Område 3</div>
+          <div class="area-name">Etikk</div>
+          <div class="area-desc">Reflektere kritisk over etiske spørsmål knyttet til digital praksis og KI</div>
+        </div>
+        <div class="area-pill">
+          <div class="area-num">Område 4</div>
+          <div class="area-name">Pedagogikk og fagdidaktikk</div>
+          <div class="area-desc">Integrere digitale verktøy i undervisning på pedagogisk forsvarlig vis</div>
+        </div>
+      </div>
+      <div class="areas-grid-bottom" style="margin-top:10px;">
+        <div class="area-pill">
+          <div class="area-num">Område 5</div>
+          <div class="area-name">Ledelse av læringsprosesser</div>
+          <div class="area-desc">Bruke digitale muligheter til å lede og støtte elevenes læring</div>
+        </div>
+        <div class="area-pill">
+          <div class="area-num">Område 6</div>
+          <div class="area-name">Samhandling og kommunikasjon</div>
+          <div class="area-desc">Kommunisere og samarbeide digitalt med elever, foresatte og kollegaer</div>
+        </div>
+        <div class="area-pill">
+          <div class="area-num">Område 7</div>
+          <div class="area-name">Endring og utvikling</div>
+          <div class="area-desc">Delta i profesjonell utvikling og bidra til skolens digitale endringsarbeid</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRYKK 3: Problemstillingen -->
+    <div class="intro-box reveal" id="s3">
+      <strong>Men — har dette rammeverket løst utfordringene?</strong> Ti år etter at PDC ble introdusert i norsk skole er tre grunnleggende problemer fortsatt uløste. Rammeverket beskriver <em>hva</em> kompetansen skal inneholde — men gir begrenset innsikt i <em>hvordan</em> den faktisk utvikles.
+    </div>
+
+  </div>
+
+  <div class="nav-bar">
+    <a class="nav-btn secondary" href="teknologi_tabell_2.html">← Hva viste analysen?</a>
+    <span class="hint" id="hint">→ neste avduking &nbsp;·&nbsp; ← forrige &nbsp;·&nbsp; Esc → forsiden</span>
+    <a class="nav-btn" href="pfdk_slide_1.html">Tre uløste problemer →</a>
+  </div>
+
+</div>
+
+<script>
+  const steps = ['s1','s2','s3'];
+  let current = -1;
+
+  function next() {
+    if (current < steps.length - 1) {
+      current++;
+      document.getElementById(steps[current]).classList.add('visible');
+    }
+    if (current >= steps.length - 1) {
+      document.getElementById('hint').textContent = '';
+    }
+  }
+
+  function prev() {
+    if (current >= 0) {
+      document.getElementById(steps[current]).classList.remove('visible');
+      current--;
+    }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if ([' ','Enter','ArrowRight','ArrowDown'].includes(e.key)) { e.preventDefault(); next(); }
+    if (['ArrowLeft','ArrowUp'].includes(e.key)) { e.preventDefault(); prev(); }
+    if (e.key === 'Escape') window.location.href = 'index.html';
+  });
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('a') && !e.target.closest('button')) next();
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trues skolen av digitalisering?</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    background: #F0F2F7;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 32px 16px;
+  }
+  .slide {
+    background: #FAFAFA;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    max-width: 1100px;
+    width: 100%;
+  }
+  .header {
+    background: #1E2761;
+    padding: 26px 36px 20px;
+  }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .header-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    font-style: italic;
+  }
+
+  /* Avduking */
+  .reveal {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(14px);
+    transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s linear 0.45s;
+  }
+  .reveal.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s;
+  }
+
+  /* To-kolonne par */
+  .pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 20px 28px 0;
+    align-items: stretch;
+  }
+
+  .quote {
+    background: #F4F6FB;
+    border-left: 4px solid #1E2761;
+    border-radius: 0 10px 10px 0;
+    padding: 16px 18px;
+  }
+  .quote-text {
+    font-size: 15px;
+    color: #1a1a2e;
+    line-height: 1.7;
+    font-style: italic;
+  }
+  .quote-source {
+    font-size: 12px;
+    color: #9AA5B4;
+    margin-top: 8px;
+  }
+
+  .action-box {
+    background: #FEECEB;
+    border: 1.5px solid #C0392B;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #6B1A14;
+    line-height: 1.65;
+  }
+  .action-box strong { font-weight: 600; }
+
+  .left-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Nyhetslenke */
+  .news-card {
+    border: 0.5px solid #D0D8EC;
+    border-radius: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    background: #fff;
+    transition: box-shadow 0.2s, transform 0.15s;
+    display: flex;
+    flex-direction: column;
+  }
+  .news-card:hover {
+    box-shadow: 0 4px 16px rgba(30,39,97,0.13);
+    transform: translateY(-2px);
+  }
+  .news-img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    background: #D0D8EC;
+  }
+  .news-body {
+    padding: 13px 14px 11px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .news-source {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #9AA5B4;
+  }
+  .news-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1E2761;
+    line-height: 1.4;
+  }
+  .news-desc {
+    font-size: 12.5px;
+    color: #4A5568;
+    line-height: 1.55;
+    flex: 1;
+  }
+  .news-link {
+    font-size: 12px;
+    color: #1E2761;
+    font-weight: 500;
+    margin-top: 4px;
+    opacity: 0.45;
+  }
+
+  /* DIGIT-boks */
+  .digit-box {
+    background: #EAF6F0;
+    border-left: 4px solid #5DCAA5;
+    border-radius: 0 10px 10px 0;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .digit-box .digit-text {
+    font-size: 14px;
+    color: #0a3d2e;
+    line-height: 1.7;
+  }
+  .digit-box .digit-source {
+    font-size: 12px;
+    color: #0F6E56;
+    margin-top: 10px;
+  }
+
+  /* Bunn */
+  .bottom-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 28px 22px;
+  }
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #1E2761;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 24px;
+    border-radius: 50px;
+    transition: opacity 0.2s;
+  }
+  .back-btn:hover { opacity: 0.8; }
+  .hint {
+    font-size: 11px;
+    color: #9AA5B4;
+    font-style: italic;
+  }
+  /* ── HJEMKNAPP ── */
+  .home-btn {
+    position: fixed;
+    top: 14px;
+    right: 20px;
+    z-index: 100;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(30,39,97,0.18);
+    border: 1.5px solid rgba(30,39,97,0.35);
+    color: #1E2761;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .home-btn:hover { background: rgba(30,39,97,0.28); }
+  .home-btn svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+<a class="home-btn" href="index.html" title="Forsiden">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/>
+    <path d="M9 21V12h6v9"/>
+  </svg>
+</a>
+<div class="slide">
+
+  <div class="header">
+    <h1>Trues skolen av digitalisering?</h1>
+    <div class="header-sub">Kunnskapsminister Kari Nessa Nordtun 2023–2025</div>
+  </div>
+
+  <!-- TRYKK 1: Sitat + ICILS-kort -->
+  <div class="pair reveal" id="s1">
+    <div style="display:flex; gap:0; border:0.5px solid #D0D8EC; border-radius:10px; overflow:hidden; background:#F4F6FB;">
+      <div style="flex:1; border-left:4px solid #1E2761; padding:16px 18px;">
+        <div class="quote-text">«Ja, jeg mener det. Jeg hadde trodd at vi skulle hatt bedre digitale ferdigheter. Vi har tross alt brukt mye ressurser på det i norsk skole.»</div>
+        <div class="quote-source">Klassekampen, november 2024 — om ICILS-resultatene</div>
+        <a href="https://www.utdanningsnytt.no/digital-kompetanse-kari-nessa-nordtun-ntb/digitaliseringen-av-norsk-skole-har-feilet/421787" target="_blank" style="display:inline-block; margin-top:10px; font-size:12px; font-weight:600; color:#1E2761; text-decoration:none; opacity:0.65;">↗ Digitaliseringen av norsk skole har feilet — Utdanningsnytt</a>
+        <a href="https://www.udir.no/tall-og-forskning/finn-forskning/rapporter/2024/icils-2023-digital-kompetanse-og-algoritmisk-tenkning-hos-norske-niendeklassinger/" target="_blank" style="display:inline-block; margin-top:6px; font-size:12px; font-weight:600; color:#1E2761; text-decoration:none; opacity:0.65;">↗ ICILS 2023 — Udir</a>
+      </div>
+      <a href="https://www.udir.no/contentassets/ecef4a09afd64d9ab283acd1d7fbfd0b/cappelendamm_2024_icils-2023_digital-kompetanse.pdf" target="_blank" style="display:block; width:130px; min-width:130px; flex-shrink:0; position:relative; overflow:hidden;">
+        <img src="Icils_forside.png" alt="ICILS 2023" style="width:100%; height:100%; object-fit:cover; display:block;">
+        <div style="position:absolute; bottom:0; left:0; right:0; background:rgba(30,39,97,0.75); color:#fff; font-size:10px; font-weight:600; padding:5px 8px; text-align:center;">↗ Les rapporten</div>
+      </a>
+    </div>
+    <a class="news-card" href="https://www.nrk.no/trondelag/nesten-halvparten-av-norske-elever-sliter-med-pc-bruk-1.17122240" target="_blank">
+      <img class="news-img" src="kari.nessa.nortun.nrk.trondheim.jpg" alt="Kari Nessa Nordtun" onerror="this.style.display='none'">
+      <div class="news-body">
+        <div class="news-source">NRK Trøndelag · 2024</div>
+        <div class="news-title">Nesten halvparten av norske elever sliter med PC-bruk</div>
+        <div class="news-desc">ICILS 2023 viser at 40 % av norske niendeklassinger er på laveste nivå i digital kompetanse — til tross for at Norge bruker digitale verktøy mer enn nesten alle andre land.</div>
+        <div class="news-link">↗ nrk.no</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- TRYKK 2: Sitat 2 + rød boks / nyhetskort -->
+  <div class="pair reveal" id="s2">
+    <div class="left-stack">
+      <div class="quote">
+        <div class="quote-text">«Det er helt avgjørende at norske elever får økt sin digitale kompetanse [...] Det betyr likevel ikke at digitale verktøy må brukes i alle fag – i alle aldre.»</div>
+        <div class="quote-source">Om ICILS 2023 og ny digitaliseringsstrategi</div>
+      </div>
+      <div class="action-box">
+        <strong>Mediebilde – hennes løsning:</strong><br>
+        Mobilfri skole · Mer trykte bøker · Vurderer å fjerne digitale ferdigheter fra 1.–4. trinn · Utrede digitale ferdighetsbehov på nytt
+      </div>
+    </div>
+    <a class="news-card" href="https://www.utdanningsnytt.no/digitale-ferdigheter-grunnleggende-ferdigheter-kari-nessa-nordtun/vurderer-a-fjerne-digitale-ferdigheter-som-grunnleggede-ferdighet/438127" target="_blank">
+      <img class="news-img" src="Kari_vurderer_fjærene_digitale_ferdigheter.jpg" alt="Kari Nessa Nordtun" onerror="this.style.display='none'">
+      <div class="news-body">
+        <div class="news-source">Utdanningsnytt · april 2025</div>
+        <div class="news-title">Vurderer å fjerne digitale ferdigheter som grunnleggende ferdighet</div>
+        <div class="news-desc">Nordtun ber Udir vurdere konsekvensene av å fjerne digitale ferdigheter for 1.–4. trinn.</div>
+        <div class="news-link">↗ utdanningsnytt.no</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- TRYKK 3: Avsluttende spørsmål -->
+  <div class="reveal" id="s3" style="margin: 20px 28px 0; background: #1E2761; border-radius: 12px; padding: 32px 40px;">
+    <div style="font-size: 24px; font-weight: 600; color: #fff; line-height: 1.5; margin-bottom: 12px;">
+      Hvis vi tar bort skjermen uten å erstatte den med systematisk opplæring — hva skjer da med de 40 prosentene?
+    </div>
+    <div style="font-size: 17px; color: rgba(255,255,255,0.60); line-height: 1.6;">
+      Og når KI nå fyller tomrommet læreplanen aldri tok ansvar for — hvem bestemmer hva som skjer der?
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <a class="back-btn" href="index.html">← Forsiden</a>
+    <div class="hint" id="hint">→ neste &nbsp;·&nbsp; ← forrige &nbsp;·&nbsp; Esc → forsiden</div>
+    <a class="back-btn" href="lk20_rammeverk_intro.html">Rammeverk og fag →</a>
+  </div>
+
+</div>
+
+<script>
+  const steps = ['s1', 's2', 's3'];
+  let current = -1;
+
+  function next() {
+    if (current < steps.length - 1) {
+      current++;
+      document.getElementById(steps[current]).classList.add('visible');
+    }
+    if (current >= steps.length - 1) {
+      document.getElementById('hint').textContent = '';
+    }
+  }
+
+  function prev() {
+    if (current >= 0) {
+      document.getElementById(steps[current]).classList.remove('visible');
+      current--;
+    }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if ([' ', 'Enter', 'ArrowRight', 'ArrowDown'].includes(e.key)) {
+      e.preventDefault();
+      next();
+    }
+    if (['ArrowLeft', 'ArrowUp'].includes(e.key)) {
+      e.preventDefault();
+      prev();
+    }
+    if (e.key === 'Escape') {
+      window.location.href = 'index.html';
+    }
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('a')) next();
+  });
+</script>
+</body>
+</html>

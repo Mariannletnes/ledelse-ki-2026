@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hva betyr dette for deg som rektor?</title>
+<style>
+  :root {
+    --navy: #1E2761;
+    --navy-dark: #161e4e;
+    --green: #1D9E75;
+    --green-light: #5DCAA5;
+    --bg: #F0F2F7;
+    --text: #1a1a2e;
+    --muted: #5a6080;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+
+  .slide-header { background: var(--navy); padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .kicker { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green-light); font-weight: 600; }
+  .slide-counter { font-size: 0.78rem; color: rgba(255,255,255,0.45); }
+
+  .slide-body { flex: 1; padding: 40px 48px 24px; display: flex; flex-direction: column; gap: 24px; max-width: 1100px; width: 100%; margin: 0 auto; }
+
+  /* Avduking */
+  .reveal { opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s linear 0.45s; }
+  .reveal.visible { opacity: 1; visibility: visible; transform: translateY(0); transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s; }
+
+  /* Tittel */
+  .slide-title { font-size: 2.0rem; font-weight: 800; color: var(--navy); line-height: 1.15; }
+  .slide-subtitle { font-size: 1.05rem; color: var(--muted); font-weight: 400; margin-top: 6px; }
+
+  /* Kort */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+
+  .card { border-radius: 14px; padding: 26px 22px; display: flex; flex-direction: column; gap: 14px; }
+  .red-card    { background: #FEF2F2; border: 1.5px solid #FECACA; }
+  .yellow-card { background: #FFFBEB; border: 1.5px solid #FDE68A; }
+  .navy-card   { background: var(--navy); border: 1.5px solid var(--navy-dark); color: #fff; }
+
+  .card-icon { display: block; margin-bottom: 2px; }
+  .card-icon svg { width: 26px; height: 26px; }
+
+  .card h3 { font-size: 1.0rem; font-weight: 700; color: var(--navy); line-height: 1.35; }
+  .navy-card h3 { color: #fff; }
+  .card p { font-size: 0.86rem; line-height: 1.70; }
+  .navy-card p { color: rgba(255,255,255,0.82); }
+
+  /* Bro-boks */
+  .bridge-box {
+    background: var(--navy-dark);
+    border-radius: 12px;
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: #fff;
+  }
+  .bridge-box p { font-size: 0.92rem; line-height: 1.65; }
+  .bridge-box em { color: var(--green-light); font-style: normal; font-weight: 600; }
+
+  /* NAV */
+  .nav-bar { background: white; border-top: 1.5px solid #e0e4f0; padding: 16px 48px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .nav-bar a { border-radius: 50px; padding: 10px 24px; font-size: 0.88rem; font-weight: 600; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center; transition: background 0.2s; }
+  .btn-prev { background: transparent; border: 2px solid var(--navy); color: var(--navy); }
+  .btn-prev:hover { background: #f0f2f7; }
+  .btn-next { background: var(--navy); color: #fff; }
+  .btn-next:hover { background: var(--navy-dark); }
+  .step-hint { font-size: 0.76rem; color: var(--muted); }
+
+  .home-btn { position: fixed; top: 14px; right: 20px; z-index: 100; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: #fff; text-decoration: none; }
+  .home-btn svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+
+<a class="home-btn" href="index.html">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+</a>
+
+<div class="slide-header">
+  <span class="kicker">KI – et pedagogisk lederansvar</span>
+  <span class="slide-counter">2 / 2</span>
+</div>
+
+<div class="slide-body">
+
+  <div class="reveal visible" id="s-title">
+    <h1 class="slide-title">Hva betyr dette for deg som rektor?</h1>
+    <p class="slide-subtitle">Fra forskning til distribuert lederhandling</p>
+  </div>
+
+  <div class="cards">
+
+    <div class="card red-card reveal" id="card-1">
+      <span class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#8B2020">
+          <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+          <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+      </span>
+      <h3>Rommet der personalet kan utforske teknologien sammen, er ikke etablert på mange skoler.</h3>
+      <p style="color: var(--text);">
+        — og uten denne arenaen mangler vi et rom der vi kan diskutere og forstå hvordan KI endrer undervisningen her og nå.
+        <br><br>
+        Dette er en feil vi ikke kan gjøre om igjen.
+      </p>
+    </div>
+
+    <div class="card yellow-card reveal" id="card-2">
+      <span class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#7A5200">
+          <circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><circle cx="19" cy="7" r="2"/><path d="M23 21v-1a3 3 0 00-2-2.83"/>
+        </svg>
+      </span>
+      <h3>Svaret er distribuert ledelse — ikke én person som bærer det alene</h3>
+      <p style="color: var(--text);">
+        Ressurspersoner, IKT-koordinatoren og lærerne er dine viktigste medspillere.
+        <br><br>
+        Du og ledelsen skaper strukturene som gjør samarbeidet mulig: felles tid, tydelige roller og et pedagogisk språk for KI som hele personalet eier.
+      </p>
+    </div>
+
+    <div class="card navy-card reveal" id="card-3">
+      <span class="card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:rgba(255,255,255,0.7)">
+          <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+      </span>
+      <h3>Men hva skal disse samarbeidsrommene fylles med?</h3>
+      <p>
+        Hvilke muligheter og utfordringer bringer KI inn i undervisnings-, lære- og vurderingsprosessen?
+        <br><br>
+        Det er dette dere må utforske — og reflektere over — sammen.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="bridge-box reveal" id="s-bridge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;color:rgba(255,255,255,0.5);flex-shrink:0"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <p>La oss se nærmere på <em>hva KI kan gjøre med undervisnings-, lære- og vurderingsprosessen</em> — mulighetene og utfordringene dere må utforske sammen.</p>
+  </div>
+
+</div>
+
+<div class="nav-bar">
+  <a class="btn-prev" href="rektorer_ki_slide_a.html">← Fire mekanismer</a>
+  <span class="step-hint" id="hint">→ neste avduking &nbsp;·&nbsp; Esc → forsiden</span>
+  <a class="btn-next" href="kritisk_tenkning.html">Hva er motoren i å lære? →</a>
+</div>
+
+<script>
+const steps = ['card-1','card-2','card-3','s-bridge'];
+let current = -1;
+function next() {
+  if (current < steps.length - 1) {
+    current++;
+    document.getElementById(steps[current]).classList.add('visible');
+    if (current >= steps.length - 1) document.getElementById('hint').textContent = '';
+  }
+}
+function prev() {
+  if (current >= 0) { document.getElementById(steps[current]).classList.remove('visible'); current--; }
+}
+document.addEventListener('keydown', e => {
+  if ([' ','Enter','ArrowRight','ArrowDown'].includes(e.key)) { e.preventDefault(); next(); }
+  if (['ArrowLeft','ArrowUp'].includes(e.key)) { e.preventDefault(); prev(); }
+  if (e.key === 'Escape') location.href = 'index.html';
+});
+document.addEventListener('click', e => { if (e.target.tagName !== 'A') next(); });
+</script>
+</body>
+</html>
