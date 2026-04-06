@@ -71,6 +71,10 @@
 
   .home-btn { position: fixed; top: 14px; right: 20px; z-index: 100; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); color: #fff; text-decoration: none; }
   .home-btn svg { width: 16px; height: 16px; }
+
+  .qr-wrap { display: flex; align-items: center; gap: 10px; }
+  .qr-wrap img { width: 64px; height: 64px; border-radius: 8px; background: #fff; padding: 4px; display: block; flex-shrink: 0; }
+  .qr-wrap p { font-size: 11px; color: rgba(255,255,255,0.6); line-height: 1.4; }
 </style>
 </head>
 <body>
@@ -94,6 +98,10 @@
 
   <div class="footer">
     <span class="hint">Klikk på kortene for å avsløre · Esc → forsiden</span>
+    <div class="qr-wrap">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https%3A%2F%2Fmariannletnes.github.io%2Fledelse-ki-2026%2Fki_teknologi_quiz.2.html" alt="QR-kode">
+      <p>Skann for å<br>prøve selv</p>
+    </div>
     <div class="btns">
       <button class="btn-all" onclick="revealAll()">Avsløre alle</button>
       <a class="btn-next" href="teknologi_som_trussel.html">Fortsett →</a>
