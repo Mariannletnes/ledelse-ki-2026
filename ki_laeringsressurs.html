@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KI som læringsressurs</title>
+<style>
+  :root { --navy: #1E2761; --navy-dark: #161e4e; --green: #1D9E75; --green-light: #5DCAA5; --bg: #F0F2F7; --text: #1a1a2e; --muted: #5a6080; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+
+  .header { background: var(--navy); padding: 22px 48px; display: flex; align-items: center; justify-content: space-between; }
+  .kicker { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green-light); font-weight: 600; }
+
+  .body { flex: 1; padding: 32px 48px 24px; display: flex; flex-direction: column; gap: 20px; max-width: 1100px; width: 100%; margin: 0 auto; }
+
+  .intro { text-align: center; }
+  .intro h1 { font-size: 1.8rem; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+  .intro p { font-size: 0.95rem; color: var(--muted); line-height: 1.65; max-width: 700px; margin: 0 auto; }
+
+  /* Seksjonslabel */
+  .section-label {
+    font-size: 0.70rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+    padding-bottom: 6px;
+    border-bottom: 1.5px solid #D0D8EC;
+    margin-bottom: 2px;
+  }
+  .section-label span { color: var(--green); }
+
+  /* RAD 1 — Elevens læreprosess: to kort */
+  .row-elev { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* RAD 2 — Profesjonsfaglig støtte: én bred boks med tre indre kort */
+  .row-prof {
+    background: white;
+    border: 1.5px solid #D0D8EC;
+    border-radius: 14px;
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .prof-inner { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .prof-item {
+    display: flex; flex-direction: column; gap: 8px;
+    padding: 16px 16px;
+    background: var(--bg);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text);
+    transition: background 0.2s, transform 0.15s;
+    border: 1.5px solid transparent;
+  }
+  .prof-item:hover { background: #E8FAF4; border-color: var(--green-light); transform: translateY(-2px); }
+  .prof-item-icon svg { width: 24px; height: 24px; color: var(--navy); opacity: 0.60; }
+  .prof-item-title { font-size: 1.0rem; font-weight: 700; color: var(--navy); }
+  .prof-item-desc { font-size: 0.80rem; color: var(--muted); line-height: 1.55; }
+  .prof-item-arrow { font-size: 0.85rem; color: var(--green-light); margin-top: auto; padding-top: 4px; }
+
+  /* RAD 3 — Forskning */
+  .row-research {
+    background: #F4FCF9;
+    border: 1.5px solid var(--green-light);
+    border-radius: 14px;
+    padding: 22px 24px;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    transition: box-shadow 0.2s, transform 0.15s;
+  }
+  .row-research:hover { box-shadow: 0 4px 20px rgba(29,158,117,0.15); transform: translateY(-2px); }
+  .research-icon svg { width: 36px; height: 36px; color: var(--green); opacity: 0.70; flex-shrink: 0; }
+  .research-text { flex: 1; }
+  .research-label { font-size: 0.70rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 4px; }
+  .research-title { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .research-quotes { display: flex; flex-direction: column; gap: 3px; }
+  .research-quote { font-size: 0.82rem; color: var(--muted); font-style: italic; }
+  .research-arrow { font-size: 1.4rem; color: var(--green-light); flex-shrink: 0; }
+
+  /* Felles dim-card stil */
+  .dim-card {
+    background: white; border-radius: 14px;
+    border: 1.5px solid #D0D8EC;
+    padding: 24px 22px;
+    text-decoration: none; color: var(--text);
+    display: flex; flex-direction: column; gap: 12px;
+    transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s;
+  }
+  .dim-card:hover { box-shadow: 0 6px 24px rgba(30,39,97,0.12); border-color: var(--green-light); transform: translateY(-3px); }
+  .dim-card-num { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; color: var(--green); }
+  .dim-card-icons { display: flex; gap: 10px; align-items: center; }
+  .dim-card-icons svg { width: 26px; height: 26px; color: var(--navy); opacity: 0.60; }
+  .dim-card-title { font-size: 1.05rem; font-weight: 700; color: var(--navy); line-height: 1.3; }
+  .dim-card-items { display: flex; flex-direction: column; gap: 5px; }
+  .dim-item { display: flex; gap: 8px; align-items: flex-start; font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+  .dim-item-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green-light); flex-shrink: 0; margin-top: 7px; }
+  .dim-card-arrow { font-size: 1.1rem; color: var(--green-light); align-self: flex-end; margin-top: auto; }
+
+  .nav-bar { background: white; border-top: 1.5px solid #e0e4f0; padding: 16px 48px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-bar a { border-radius: 50px; padding: 10px 24px; font-size: 0.88rem; font-weight: 600; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center; transition: background 0.2s; }
+  .btn-prev { background: transparent; border: 2px solid var(--navy); color: var(--navy); }
+  .btn-prev:hover { background: #f0f2f7; }
+  .btn-next { background: var(--navy); color: #fff; }
+  .btn-next:hover { background: var(--navy-dark); }
+
+  .home-btn { position: fixed; top: 14px; right: 20px; z-index: 100; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: #fff; text-decoration: none; }
+  .home-btn svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+
+<a class="home-btn" href="index.html">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+</a>
+
+<div class="header">
+  <span class="kicker">KI i skolen</span>
+</div>
+
+<div class="body">
+
+  <div class="intro">
+    <h1>KI som læringsressurs</h1>
+    <p>Hva kan KI gjøre med undervisnings-, lære- og vurderingsprosessen? Her er syv dimensjoner — med muligheter og utfordringer — som personalet bør utforske og reflektere over sammen.</p>
+  </div>
+
+  <!-- RAD 1: Elevens læreprosess -->
+  <div>
+    <div class="section-label"><span>Elevens læreprosess</span> — hva KI gjør med selve læringssituasjonen</div>
+    <div style="height:12px"></div>
+    <div class="row-elev">
+
+      <a class="dim-card" href="ki_interaksjon_kommunikasjon.html">
+        <div class="dim-card-num">Dimensjon 1 og 2</div>
+        <div class="dim-card-icons">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <div class="dim-card-title">Interaksjon og kommunikasjon</div>
+        <div class="dim-card-items">
+          <div class="dim-item"><span class="dim-item-dot"></span>Eleven i dialog med KI — fra orakel til dialogpartner</div>
+          <div class="dim-item"><span class="dim-item-dot"></span>Nye måter å formidle forståelse på</div>
+          <div class="dim-item"><span class="dim-item-dot"></span>Epistemisk arbeid og autentisitet</div>
+        </div>
+        <div class="dim-card-arrow">→</div>
+      </a>
+
+      <a class="dim-card" href="ki_visualisering_simulering.html">
+        <div class="dim-card-num">Dimensjon 3 og 4</div>
+        <div class="dim-card-icons">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </div>
+        <div class="dim-card-title">Visualisering og simulering</div>
+        <div class="dim-card-items">
+          <div class="dim-item"><span class="dim-item-dot"></span>Gjøre abstrakte konsepter konkrete og synlige</div>
+          <div class="dim-item"><span class="dim-item-dot"></span>Øve på virkelige situasjoner i trygge digitale rammer</div>
+          <div class="dim-item"><span class="dim-item-dot"></span>Learning by doing — Dewey</div>
+        </div>
+        <div class="dim-card-arrow">→</div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- RAD 2: Profesjonsfaglig støtte -->
+  <div>
+    <div class="section-label"><span>Profesjonsfaglig støtte</span> — KI i lærerens eget arbeid</div>
+    <div style="height:12px"></div>
+    <div class="row-prof">
+      <div class="prof-inner">
+
+        <a class="prof-item" href="ki_planlegging_inkludering.html">
+          <div class="prof-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          </div>
+          <div class="prof-item-title">Planlegging</div>
+          <div class="prof-item-desc">KI som sparringspartner for årsplaner, undervisningsopplegg og differensiering.</div>
+          <div class="prof-item-arrow">→</div>
+        </a>
+
+        <a class="prof-item" href="ki_planlegging_inkludering.html">
+          <div class="prof-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div class="prof-item-title">Inkluderende praksis</div>
+          <div class="prof-item-desc">KI som brobygger — oversettelse, forenkling, støtte for ulike læringsbehov.</div>
+          <div class="prof-item-arrow">→</div>
+        </a>
+
+        <a class="prof-item" href="ki_planlegging_inkludering.html">
+          <div class="prof-item-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="prof-item-title">Vurdering</div>
+          <div class="prof-item-desc">Tidsbesparelser i analyse og formative tilbakemeldinger — og de største etiske diskusjonene.</div>
+          <div class="prof-item-arrow">→</div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- RAD 3: Forskning -->
+  <div>
+    <div class="section-label"><span>Å lære med maskiner</span> — fra forskningsprosjektet</div>
+    <div style="height:12px"></div>
+    <a class="row-research" href="ki_fra_forskning.html">
+      <div class="research-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg>
+      </div>
+      <div class="research-text">
+        <div class="research-label">Fra forskningen</div>
+        <div class="research-title">Hva sier elevene som faktisk gjorde det?</div>
+        <div class="research-quotes">
+          <div class="research-quote">«Jeg vil vite at det er min kunnskap læreren ser»</div>
+          <div class="research-quote">«Du må faktisk kunne stoffet for å bruke KI»</div>
+          <div class="research-quote">«Når KI har riktig svar — er det ingenting å diskutere»</div>
+        </div>
+      </div>
+      <div class="research-arrow">→</div>
+    </a>
+  </div>
+
+</div>
+
+<div class="nav-bar">
+  <a class="btn-prev" href="kritisk_tenkning.html">← Hva er motoren i å lære</a>
+  <a class="btn-next" href="ki_fra_forskning.html">Å lære med maskiner →</a>
+</div>
+
+</body>
+</html>

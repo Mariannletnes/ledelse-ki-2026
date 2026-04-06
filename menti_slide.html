@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentimeter</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; background: #0a0f2e; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; color: #fff; }
+
+  .layout {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    padding-bottom: 56px; /* plass til nav-bar */
+  }
+
+  .menti-wrap { width: 100%; height: 100%; }
+  .menti-wrap iframe { width: 100%; height: 100%; border: none; }
+
+  .qr-panel {
+    background: rgba(255,255,255,0.04);
+    border-left: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px 16px;
+  }
+  .qr-panel img {
+    width: 160px;
+    height: 160px;
+    border-radius: 12px;
+    background: #fff;
+    padding: 8px;
+    display: block;
+  }
+  .qr-label {
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255,255,255,0.50);
+    line-height: 1.6;
+  }
+  .qr-label strong {
+    display: block;
+    font-size: 14px;
+    color: #5DCAA5;
+    margin-bottom: 4px;
+  }
+
+  .home-btn {
+    position: fixed; top: 14px; right: 20px; z-index: 100;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
+    color: #fff; text-decoration: none; transition: background 0.2s;
+  }
+  .home-btn:hover { background: rgba(255,255,255,0.22); }
+  .home-btn svg { width: 16px; height: 16px; }
+
+  .nav-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(10,15,46,0.85);
+    backdrop-filter: blur(8px);
+    padding: 12px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 100;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .nav-btn {
+    border-radius: 50px; padding: 9px 22px;
+    font-size: 0.85rem; font-weight: 600;
+    font-family: inherit; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: background 0.2s; border: none; cursor: pointer;
+  }
+  .btn-prev { background: transparent; border: 1.5px solid rgba(255,255,255,0.30); color: #fff; }
+  .btn-prev:hover { background: rgba(255,255,255,0.10); }
+  .btn-next { background: #1E2761; color: #fff; }
+  .btn-next:hover { background: #161e4e; }
+</style>
+</head>
+<body>
+
+<a class="home-btn" href="index.html">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+</a>
+
+<div class="layout">
+  <div class="menti-wrap">
+    <iframe
+      sandbox="allow-popups allow-scripts allow-same-origin allow-presentation"
+      allowfullscreen="true"
+      allowtransparency="true"
+      frameborder="0"
+      src="https://www.mentimeter.com/app/presentation/alinjyidyf52r9pfoqawwiopzwani9az/embed">
+    </iframe>
+  </div>
+
+  <div class="qr-panel">
+    <img src="mentimeter_qr_code-5.png" alt="QR-kode til Mentimeter">
+    <div class="qr-label">
+      <strong>Scan og stem!</strong>
+      Bruk mobilen din<br>og bli med i avstemningen
+    </div>
+  </div>
+</div>
+
+<div class="nav-bar">
+  <a class="nav-btn btn-prev" href="avatar_intro.html">← Avatar Mari-Ann</a>
+  <a class="nav-btn btn-next" href="ki_teknologi_quiz.html">KI-quiz →</a>
+</div>
+
+<script>
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') location.href = 'index.html';
+});
+</script>
+</body>
+</html>

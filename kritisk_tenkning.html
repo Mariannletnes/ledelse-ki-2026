@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hva er motoren i å lære?</title>
+<style>
+  :root {
+    --navy: #1E2761;
+    --navy-dark: #161e4e;
+    --green: #1D9E75;
+    --green-light: #5DCAA5;
+    --bg: #F0F2F7;
+    --text: #1a1a2e;
+    --muted: #5a6080;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header {
+    background: var(--navy);
+    padding: 18px 48px 20px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .kicker {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--green-light);
+    font-weight: 600;
+  }
+
+  .theory-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .theory-card {
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .t1 { background: rgba(139,58,58,0.30); border: 1.5px solid rgba(180,80,80,0.50); }
+  .t2 { background: rgba(30,58,120,0.35); border: 1.5px solid rgba(60,100,180,0.50); }
+  .t3 { background: rgba(45,100,65,0.30); border: 1.5px solid rgba(60,140,90,0.50); }
+  .t4 { background: rgba(130,100,40,0.30); border: 1.5px solid rgba(170,130,50,0.50); }
+
+  .theory-header { display: flex; align-items: center; gap: 8px; }
+  .theory-icon svg { width: 20px; height: 20px; opacity: 0.85; }
+  .t1 .theory-icon svg { color: #F4A0A0; }
+  .t2 .theory-icon svg { color: #90C0F0; }
+  .t3 .theory-icon svg { color: #80D4A0; }
+  .t4 .theory-icon svg { color: #F0D090; }
+
+  .theory-name { font-size: 0.90rem; font-weight: 700; color: #fff; }
+  .theory-thinker { font-size: 0.72rem; color: rgba(255,255,255,0.55); font-style: italic; }
+  .theory-desc { font-size: 0.75rem; color: rgba(255,255,255,0.72); line-height: 1.55; }
+
+  /* BODY */
+  .body {
+    flex: 1;
+    padding: 32px 48px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .reveal {
+    opacity: 0; visibility: hidden; transform: translateY(12px);
+    transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s linear 0.45s;
+  }
+  .reveal.visible {
+    opacity: 1; visibility: visible; transform: translateY(0);
+    transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s;
+  }
+
+  .big-question h1 { font-size: 2.2rem; font-weight: 800; color: var(--navy); line-height: 1.2; margin-bottom: 8px; }
+  .big-question p { font-size: 1.0rem; color: var(--muted); line-height: 1.65; max-width: 680px; }
+
+  .example-box {
+    background: white; border: 1.5px solid #D0D8EC;
+    border-left: 4px solid var(--navy); border-radius: 12px;
+    padding: 18px 24px; font-size: 0.95rem; color: var(--text); line-height: 1.75;
+  }
+  .example-box strong { color: var(--navy); }
+  .example-box em { color: var(--muted); font-style: italic; }
+
+  .model-box {
+    background: white; border: 2px solid var(--green-light);
+    border-radius: 14px; padding: 22px 28px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .model-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; color: var(--green); }
+  .model-img { width: 100%; max-height: 90px; object-fit: contain; }
+  .model-sub { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .model-sub-item { text-align: center; font-size: 0.78rem; color: var(--muted); line-height: 1.55; }
+  .model-sub-item strong { color: var(--navy); display: block; margin-bottom: 2px; }
+
+  .ki-kobling {
+    background: var(--navy); border-radius: 12px;
+    padding: 16px 24px; color: #fff; font-size: 0.92rem; line-height: 1.65;
+  }
+  .ki-kobling strong { color: var(--green-light); }
+
+  .nav-bar {
+    background: white; border-top: 1.5px solid #e0e4f0;
+    padding: 16px 48px; display: flex; align-items: center;
+    justify-content: space-between; flex-shrink: 0;
+  }
+  .nav-bar a {
+    border-radius: 50px; padding: 10px 24px; font-size: 0.88rem;
+    font-weight: 600; font-family: inherit; text-decoration: none;
+    display: inline-flex; align-items: center; transition: background 0.2s;
+  }
+  .btn-prev { background: transparent; border: 2px solid var(--navy); color: var(--navy); }
+  .btn-prev:hover { background: #f0f2f7; }
+  .btn-next { background: var(--navy); color: #fff; }
+  .btn-next:hover { background: var(--navy-dark); }
+  .step-hint { font-size: 0.76rem; color: var(--muted); }
+
+  .home-btn {
+    position: fixed; top: 14px; right: 20px; z-index: 100;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
+    color: #fff; text-decoration: none;
+  }
+  .home-btn svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+
+<a class="home-btn" href="index.html">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+</a>
+
+<div class="header">
+  <span class="kicker">Hva er motoren i å lære?</span>
+  <div class="theory-row">
+
+    <div class="theory-card t1">
+      <div class="theory-header">
+        <div class="theory-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18"/></svg>
+        </div>
+        <div>
+          <div class="theory-name">Behaviorisme</div>
+          <div class="theory-thinker">Skinner</div>
+        </div>
+      </div>
+      <div class="theory-desc">Læring som stimulus og respons. <br><br>Atferd formes gjennom forsterkning og belønning.</div>
+    </div>
+
+    <div class="theory-card t2">
+      <div class="theory-header">
+        <div class="theory-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div>
+          <div class="theory-name">Kognitivisme</div>
+          <div class="theory-thinker">Piaget</div>
+        </div>
+      </div>
+      <div class="theory-desc">Læring som mental bearbeiding. <br><br> Eleven konstruerer kunnskap gjennom egne indre prosesser.</div>
+    </div>
+
+    <div class="theory-card t3">
+      <div class="theory-header">
+        <div class="theory-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div>
+          <div class="theory-name">Sosiokulturelt</div>
+          <div class="theory-thinker">Vygotsky</div>
+        </div>
+      </div>
+      <div class="theory-desc">Læring skjer i samspill med andre. <br><br>Språk og kultur er redskaper for tenkning.</div>
+    </div>
+
+    <div class="theory-card t4">
+      <div class="theory-header">
+        <div class="theory-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <div class="theory-name">Pragmatisme</div>
+          <div class="theory-thinker">Dewey</div>
+        </div>
+      </div>
+      <div class="theory-desc">Læring gjennom erfaring og refleksjon. <br><br> Kunnskap er nyttig når den løser virkelige problemer.</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="body">
+
+  <div class="big-question reveal" id="s1">
+    <h1>Hva er motoren i å lære?</h1>
+    <p>Vi har diskutert dette i over hundre år. Og svaret har stor betydning for hva vi tenker skjer i klasserommet — med eller uten KI.</p>
+  </div>
+
+  <div class="example-box reveal" id="s2">
+    <strong>Eleven sitter og trykker i matematikk-appen.</strong> Grønt. Rødt. Grønt igjen.<br><br>
+    Er dette en <strong>kognitiv aktivitet</strong> — eller en <strong>gjettelek</strong>? Foregår det læring, eller foregår det en aktivitet som <em>ligner</em> på læring?<br><br>
+    Uten et felles pedagogisk språk kan vi ikke engang stille spørsmålet — og da kan vi heller ikke svare på det.
+  </div>
+
+  <div class="model-box reveal" id="s3">
+    <div class="model-label">Kritisk tenkning — motoren som er felles for kognitivisme, sosikulturelle og pragmatiske teorier </div>
+    <img class="model-img" src="Kritisk_tenking.png" alt="Kritisk tenkning: Undring → Perspektivering → Vurdering">
+    <div class="model-sub">
+      <div class="model-sub-item"><strong>Undring</strong>Bruddet som starter prosessen</div>
+      <div class="model-sub-item"><strong>Perspektivering</strong>Tre ut, still spørsmål, overveie</div>
+      <div class="model-sub-item"><strong>Vurdering</strong>Bedømme, begrunne, ta stilling</div>
+    </div>
+  </div>
+
+  <div class="ki-kobling reveal" id="s4">
+    <strong>KI kan enten støtte denne motoren — eller kortslutte den.</strong> <br><br> Når KI leverer svaret før eleven har fått undre seg, forsvinner startpunktet for all kritisk tenkning. Det er dette vi skal se nærmere på.
+  </div>
+
+</div>
+
+<div class="nav-bar">
+  <a class="btn-prev" href="rektorer_ki_slide_b.html">← Hva betyr dette for rektor</a>
+  <span class="step-hint" id="hint">→ neste avduking &nbsp;·&nbsp; Esc → forsiden</span>
+  <a class="btn-next" href="ki_laeringsressurs.html">KI som læringsressurs →</a>
+</div>
+
+<script>
+const steps = ['s1','s2','s3','s4'];
+let current = -1;
+function next() {
+  if (current < steps.length - 1) {
+    current++;
+    document.getElementById(steps[current]).classList.add('visible');
+    if (current >= steps.length - 1) document.getElementById('hint').textContent = '';
+  }
+}
+function prev() {
+  if (current >= 0) { document.getElementById(steps[current]).classList.remove('visible'); current--; }
+}
+document.addEventListener('keydown', e => {
+  if ([' ','Enter','ArrowRight','ArrowDown'].includes(e.key)) { e.preventDefault(); next(); }
+  if (['ArrowLeft','ArrowUp'].includes(e.key)) { e.preventDefault(); prev(); }
+  if (e.key === 'Escape') location.href = 'index.html';
+});
+document.addEventListener('click', e => { if (e.target.tagName !== 'A') next(); });
+</script>
+</body>
+</html>

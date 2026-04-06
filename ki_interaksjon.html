@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interaksjon – fra orakel til dialogpartner</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #F0F2F7; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 32px 16px; }
+  .slide { background: #FAFAFA; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.10); max-width: 1100px; width: 100%; }
+  .header { background: #1E2761; padding: 22px 32px 18px; }
+  .header-kicker { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 5px; }
+  .header h1 { font-size: 28px; font-weight: 600; color: #fff; margin-bottom: 5px; }
+  .header-sub { font-size: 13px; font-style: italic; color: rgba(255,255,255,0.55); }
+  .body { padding: 24px 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .intro { font-size: 15px; color: #2d3748; line-height: 1.7; grid-column: 1 / -1; }
+  .two-col { display: contents; }
+  .col-card { background: #fff; border: 0.5px solid #D0D8EC; border-radius: 10px; padding: 18px 20px; }
+  .col-card.green { border-color: #9FE1CB; background: #EAF6F0; }
+  .col-card.amber { border-color: #FAC775; background: #FFF8E1; }
+  .col-title { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px; color: #1E2761; }
+  .col-card.green .col-title { color: #0F6E56; }
+  .col-card.amber .col-title { color: #92550A; }
+  .point { font-size: 13px; color: #2d3748; line-height: 1.65; padding: 5px 0; border-bottom: 0.5px solid rgba(0,0,0,0.06); }
+  .point:last-child { border-bottom: none; }
+  .implik { grid-column: 1 / -1; background: #1E2761; border-radius: 10px; padding: 18px 22px; }
+  .implik-title { font-size: 12px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 12px; }
+  .implik-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .implik-item { font-size: 12px; color: rgba(255,255,255,0.85); line-height: 1.6; }
+  .implik-item strong { color: #fff; display: block; margin-bottom: 4px; font-size: 13px; }
+  .nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 14px 32px 18px; gap: 10px; border-top: 0.5px solid #D0D8EC; }
+  .nav-btn { display: inline-flex; align-items: center; gap: 6px; background: #1E2761; color: #fff; text-decoration: none; font-size: 12px; font-weight: 500; padding: 9px 18px; border-radius: 50px; white-space: nowrap; }
+  .nav-btn.secondary { background: transparent; color: #1E2761; border: 1px solid #1E2761; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="header">
+    <div class="header-kicker">KI som læringsressurs</div>
+    <h1>Interaksjon</h1>
+    <div class="header-sub">Fra orakel til dialogpartner</div>
+  </div>
+
+  <div class="body">
+    <p class="intro">KI går fra å være et «orakel» til å bli en aktiv dialogpartner. Gjennom umiddelbar respons kan eleven prøve ut tanker, forklare egne valg og justere forståelsen underveis. Slik blir fagstoffet mer tilgjengelig, samtidig som eleven må ta eierskap til egen læreprosess.</p>
+
+    <div class="col-card green">
+      <div class="col-title">Muligheten (Utdanning)</div>
+      <div class="point">KI kan åpne nye perspektiver og utvide elevens handlingsrom</div>
+      <div class="point">Umiddelbar respons gjør fagstoffet tilgjengelig for alle</div>
+      <div class="point">Eleven kan prøve og feile uten sosial risiko</div>
+    </div>
+
+    <div class="col-card amber">
+      <div class="col-title">Utfordringen (Danning)</div>
+      <div class="point">Forutsetter at eleven tar seg tid til å arbeide aktivt i møte med fagstoffet</div>
+      <div class="point">Risiko for «optiske gevinster» – resultatene ser bra ut, men læringen uteblir</div>
+      <div class="point">Eleven må lede og styre verktøyet – ikke delegere tenkejobben</div>
+    </div>
+
+    <div class="implik">
+      <div class="implik-title">Implikasjoner for skolen</div>
+      <div class="implik-grid">
+        <div class="implik-item"><strong>Synliggjør det epistemiske arbeidet</strong>Be elever forklare, begrunne, verifisere. Ikke bare vurdere produktet, men prosessen.</div>
+        <div class="implik-item"><strong>Skap «formativ friksjon»</strong>Oppgaver som ikke kan løses kun med KI. Krever tolkning, vurdering, eget ståsted.</div>
+        <div class="implik-item"><strong>Posisjonér KI som dialogpartner</strong>Ikke orakel, men noe å stille spørsmål til. Lær elevene å orkestrere KI, ikke delegere alt.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-bar">
+    <a class="nav-btn secondary" href="ki_laeringsressurs.html">← Oversikt</a>
+    <a class="nav-btn" href="ki_kommunikasjon.html">Kommunikasjon →</a>
+  </div>
+</div>
+</body>
+</html>

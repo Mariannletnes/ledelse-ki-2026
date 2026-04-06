@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ivaretar LK20 grunnleggende digitale ferdigheter?</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #F0F2F7; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 32px 16px; }
+
+  .slide { background: #FAFAFA; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.10); max-width: 1100px; width: 100%; }
+
+  .header { background: #1E2761; padding: 20px 28px 16px; }
+  .header h1 { font-size: 24px; font-weight: 600; color: #fff; margin-bottom: 10px; }
+  .header-sub { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  .subtitle { font-size: 11px; color: rgba(255,255,255,0.60); font-style: italic; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: rgba(255,255,255,0.88); white-space: nowrap; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .dot-green { background: #1D9E75; }
+  .dot-amber { background: #E8A020; }
+  .dot-red   { background: #C0392B; }
+
+  .matrix { padding: 16px 20px 12px; overflow-x: auto; }
+
+  table { width: 100%; border-collapse: collapse; min-width: 750px; }
+
+  thead th {
+    background: #1E2761; color: #fff;
+    font-size: 10px; font-weight: 500;
+    padding: 9px 5px; text-align: center;
+    border: 1px solid #2d3a7a;
+    line-height: 1.3; vertical-align: bottom;
+  }
+  thead th.label-col {
+    text-align: left; padding-left: 12px;
+    width: 230px; min-width: 210px; vertical-align: bottom;
+  }
+
+  /* Avduking */
+  .reveal {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Rader */
+  tbody tr { transition: opacity 0.45s ease, transform 0.45s ease; }
+
+  .row-odd  { background: #F4F6FB; }
+  .row-even { background: #FFFFFF; }
+  .row-green { background: #EAF6F0; }
+  .row-warn  { background: #FFF9F0; }
+
+  tbody td { border: 1px solid #D0D8EC; vertical-align: middle; }
+
+  .row-label { padding: 9px 12px; width: 230px; min-width: 210px; }
+  .row-title  { font-size: 11.5px; font-weight: 600; color: #1E2761; margin-bottom: 2px; }
+  .row-sub    { font-size: 9px; color: #4A5568; font-style: italic; line-height: 1.4; }
+  .row-note        { font-size: 8.5px; color: #C0392B; margin-top: 3px; font-weight: 500; }
+  .row-note-amber  { font-size: 8.5px; color: #92550A; margin-top: 2px; font-weight: 500; }
+  .row-note-green  { font-size: 8.5px; color: #0F6E56; margin-top: 3px; font-weight: 500; }
+
+  .cell { text-align: center; padding: 8px 4px; }
+  .circle { width: 18px; height: 18px; border-radius: 50%; display: inline-block; }
+  .c-green { background: #1D9E75; }
+  .c-amber { background: #E8A020; }
+  .c-red   { background: #C0392B; }
+
+  /* Tre sannhets-kort */
+  .three-truths { margin: 4px 20px 14px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .truth-card { border-radius: 8px; padding: 10px 12px; font-size: 10.5px; line-height: 1.55; }
+  .truth-card.green { background: #E8F8F3; border: 1px solid #1D9E75; color: #0A4A35; }
+  .truth-card.amber { background: #FFF3DC; border: 1px solid #E8A020; color: #5D3A00; }
+  .truth-card.red   { background: #FEECEB; border: 1px solid #C0392B; color: #6B1A14; }
+  .truth-card .tc-label { font-size: 9px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 4px; opacity: 0.75; }
+
+  .source { padding: 0 20px 10px; font-size: 8.5px; color: #9AA5B4; font-style: italic; }
+
+  /* Navigasjon */
+  .nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px 18px; gap: 10px; }
+  .nav-btn { display: inline-flex; align-items: center; gap: 6px; background: #1E2761; color: #fff; text-decoration: none; font-size: 12px; font-weight: 500; padding: 9px 18px; border-radius: 50px; transition: opacity 0.2s; white-space: nowrap; }
+  .nav-btn:hover { opacity: 0.8; }
+  .nav-btn.secondary { background: transparent; color: #1E2761; border: 1px solid #1E2761; }
+
+  .hint { font-size: 10px; color: #9AA5B4; font-style: italic; text-align: center; padding: 6px 0 2px; }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="header">
+    <h1>Ivaretar LK20 grunnleggende digitale ferdigheter?</h1>
+    <div class="header-sub">
+      <span class="subtitle">Rammeverk for grunnleggende ferdigheter (Udir 2017) × kompetansemål i grunnskolefagene</span>
+      <div class="legend">
+        <div class="legend-item"><span class="dot dot-green"></span>Eksplisitt kompetansemål</div>
+        <div class="legend-item"><span class="dot dot-amber"></span>Implisitt / forutsatt</div>
+        <div class="legend-item"><span class="dot dot-red"></span>Ingen dekning</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="matrix">
+    <table>
+      <thead>
+        <tr>
+          <th class="label-col">Ferdighetsområde (Udir 2017)</th>
+          <th>Samfunns-<br>fag</th>
+          <th>Norsk</th>
+          <th>Matema-<br>tikk</th>
+          <th>Natur-<br>fag</th>
+          <th>Engelsk</th>
+          <th>KRLE</th>
+          <th>Musikk</th>
+          <th>Kunst &amp;<br>håndverk</th>
+          <th>Mat og<br>helse</th>
+          <th>Kropps-<br>øving</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr class="row-odd reveal" id="rad1">
+          <td class="row-label">
+            <div class="row-title">1. Bruke og forstå</div>
+            <div class="row-sub">Utstyr, programvare, navigasjon, sikkerhet</div>
+            <div class="row-note">↑ Ingen fageier — forutsettes kjent i alle fag</div>
+          </td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+        </tr>
+
+        <tr class="row-green reveal" id="rad2">
+          <td class="row-label">
+            <div class="row-title">2. Finne og behandle</div>
+            <div class="row-sub">Søke, kildekritikk, tolke informasjon</div>
+            <div class="row-note-green">↑ Det eneste området som er godt dekket</div>
+          </td>
+          <td class="cell"><span class="circle c-green"></span></td>
+          <td class="cell"><span class="circle c-green"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-green"></span></td>
+          <td class="cell"><span class="circle c-green"></span></td>
+          <td class="cell"><span class="circle c-green"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-red"></span></td>
+        </tr>
+
+        <tr class="row-even reveal" id="rad3">
+          <td class="row-label">
+            <div class="row-title">3. Produsere og bearbeide</div>
+            <div class="row-sub">Skape digitale produkter — det ICILS faktisk tester</div>
+            <div class="row-note">↑ Kun 3 fag har eksplisitte kompetansemål</div>
+          </td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-green"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-red"></span></td>
+          <td class="cell"><span class="circle c-green"></span></td>
+          <td class="cell"><span class="circle c-green"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-red"></span></td>
+        </tr>
+
+        <tr class="row-warn reveal" id="rad4">
+          <td class="row-label">
+            <div class="row-title">4. Kommunisere og samhandle</div>
+            <div class="row-sub">Samskriving, deling, digital kommunikasjon</div>
+            <div class="row-note">↑ Skjermen isolerer — elevene samhandler mindre, ikke mer</div>
+            <div class="row-note-amber">↑ Krever at læreren aktivt iscenesetter det</div>
+          </td>
+          <td class="cell"><span class="circle c-green"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-red"></span></td>
+          <td class="cell"><span class="circle c-red"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-red"></span></td>
+          <td class="cell"><span class="circle c-red"></span></td>
+          <td class="cell"><span class="circle c-red"></span></td>
+          <td class="cell"><span class="circle c-red"></span></td>
+          <td class="cell"><span class="circle c-red"></span></td>
+        </tr>
+
+        <tr class="row-odd reveal" id="rad5">
+          <td class="row-label">
+            <div class="row-title">5. Utøve digital dømmekraft</div>
+            <div class="row-sub">Personvern, etikk, ansvar på nett</div>
+            <div class="row-note-amber">↑ Selvbilde: vi er gode på dette</div>
+            <div class="row-note">↑ Virkelighet: kildekritikk i 2 fag — etikk, AI og algoritmer mangler</div>
+          </td>
+          <td class="cell"><span class="circle c-green"></span></td>
+          <td class="cell"><span class="circle c-green"></span></td>
+          <td class="cell"><span class="circle c-red"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-amber"></span></td>
+          <td class="cell"><span class="circle c-red"></span></td>
+          <td class="cell"><span class="circle c-red"></span></td>
+          <td class="cell"><span class="circle c-red"></span></td>
+          <td class="cell"><span class="circle c-red"></span></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="three-truths">
+    <div class="truth-card green reveal" id="kort1">
+      <div class="tc-label">Det vi trodde vi var gode på</div>
+      Digital dømmekraft ser grønn ut i fagplanene — men det som faktisk undervises er nesten utelukkende kildekritikk i to fag. Etikk, personvern, algoritmers makt og AI-håndtering mangler.
+    </div>
+    <div class="truth-card amber reveal" id="kort2">
+      <div class="tc-label">Det vi også trodde vi var gode på</div>
+      Elever produserer og samarbeider digitalt hele tiden — tenkte vi. Men læreplanen har nesten ingen eksplisitte mål for produksjon, og skjermen isolerer elevene i stedet for å samle dem. ICILS viser at det er nettopp produksjon de strever mest med.
+    </div>
+    <div class="truth-card red reveal" id="kort3">
+      <div class="tc-label">Det ingen har tatt ansvar for ennå</div>
+      KI krever et nytt lag av digital dømmekraft som ikke finnes i noen kompetansemål. Når KI fyller tomrommet læreplanen aldri tok ansvar for, forsvinner også behovet for å rette det opp.
+    </div>
+  </div>
+
+  <div class="source reveal" id="nav-reveal">Kilder: LK20 kompetansemål (udir.no) · Rammeverk for grunnleggende ferdigheter (Udir 2017) · ICILS 2023 · EDUCATE 2026 · Letnes (2025)</div>
+
+  <div class="hint" id="hint">Trykk mellomrom, enter eller piltast for neste →</div>
+
+  <div class="nav-bar reveal" id="nav">
+    <a class="nav-btn secondary" href="index.html">← Forsiden</a>
+    <a class="nav-btn secondary" href="lk20_rammeverk_intro.html">← Rammeverk og fag</a>
+    <a class="nav-btn" href="teknologi_tabell_2.html">Hva viste analysen? →</a>
+  </div>
+
+</div>
+
+<script>
+  const steps = ['rad1','rad2','rad3','rad4','rad5','kort1','kort2','kort3','nav-reveal','nav'];
+  let current = -1;
+
+  function next() {
+    current++;
+    if (current < steps.length) {
+      document.getElementById(steps[current]).classList.add('visible');
+    }
+    if (current >= steps.length - 1) {
+      document.getElementById('hint').textContent = '';
+    }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === ' ' || e.key === 'Enter' || e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      next();
+    }
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('a')) next();
+  });
+</script>
+
+</body>
+</html>

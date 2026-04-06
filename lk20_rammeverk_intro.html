@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grunnleggende digitale ferdigheter – rammeverk og fag</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    background: #F0F2F7;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 32px 16px;
+  }
+
+  .slide {
+    background: #FAFAFA;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  .header { background: #1E2761; padding: 20px 28px 16px; }
+  .header h1 { font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 5px; line-height: 1.2; }
+  .header-sub { font-size: 11px; color: rgba(255,255,255,0.55); font-style: italic; }
+
+  .body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+
+  /* ── VENSTRE: ferdighetsområder ─────────────── */
+  .left { padding: 20px 24px; border-right: 1px solid #D0D8EC; }
+
+  .col-title {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: #1E2761;
+    margin-bottom: 12px; padding-bottom: 8px;
+    border-bottom: 2px solid #1E2761;
+    display: block; text-decoration: none;
+  }
+  .col-title:hover { opacity: 0.7; }
+
+  .area {
+    display: flex; gap: 12px; align-items: center;
+    padding: 10px 8px; border-bottom: 0.5px solid #E8ECF5;
+    border-radius: 8px;
+    text-decoration: none; color: inherit;
+    transition: background 0.2s;
+  }
+  .area:last-child { border-bottom: none; }
+  .area:hover { background: #EEF0FA; }
+
+  /* SVG-ikonboks */
+  .area-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .area-icon svg { width: 22px; height: 22px; }
+
+  .area-content { flex: 1; }
+  .area-title { font-size: 12px; font-weight: 700; color: #1E2761; margin-bottom: 2px; }
+  .area-desc { font-size: 10px; color: #4A5568; line-height: 1.5; }
+  .area-link { font-size: 9px; color: #1E2761; opacity: 0.35; margin-top: 2px; }
+
+  /* ── HØYRE: fagene ──────────────────────────── */
+  .right { padding: 20px 24px; }
+
+  .reveal {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s linear 0.45s;
+  }
+  .reveal.visible {
+    opacity: 1; visibility: visible; transform: translateY(0);
+    transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s;
+  }
+
+  .section-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.07em;
+    text-transform: uppercase; color: #9AA5B4;
+    margin: 0 0 8px;
+  }
+  .section-label + .section-label { margin-top: 16px; }
+
+  .fag-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 0; }
+
+  .fag-card {
+    border: 1px solid #E0E4EF;
+    border-radius: 9px;
+    padding: 10px 12px;
+    background: #fff;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: background 0.18s, border-color 0.18s, box-shadow 0.18s;
+  }
+  .fag-card:hover {
+    background: #EEF0FA;
+    border-color: #1E2761;
+    box-shadow: 0 2px 8px rgba(30,39,97,0.09);
+  }
+  .fag-card.practical { border-color: #9FE1CB; background: #F4FCF9; }
+  .fag-card.practical:hover { background: #E1F5EE; border-color: #1D9E75; }
+
+  .fag-name { font-size: 12.5px; font-weight: 700; color: #1E2761; }
+  .fag-note { font-size: 9.5px; color: #4A5568; margin-top: 2px; font-style: italic; line-height: 1.4; }
+  .fag-arrow { font-size: 9px; color: #1E2761; opacity: 0.30; margin-top: 4px; }
+
+  .gap-row { height: 14px; }
+
+  /* ── BUNN ───────────────────────────────────── */
+  .source-bar {
+    padding: 9px 24px;
+    border-top: 0.5px solid #D0D8EC;
+    background: #F4F6FB;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 8px;
+  }
+  .source-text { font-size: 8.5px; color: #9AA5B4; font-style: italic; }
+  .hint { font-size: 9px; color: #9AA5B4; font-style: italic; }
+
+  .nav-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 24px 16px; gap: 10px;
+  }
+  .nav-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #1E2761; color: #fff;
+    text-decoration: none; font-size: 12px; font-weight: 500;
+    padding: 9px 18px; border-radius: 50px;
+    transition: opacity 0.2s; white-space: nowrap;
+  }
+  .nav-btn:hover { opacity: 0.8; }
+  .nav-btn.secondary { background: transparent; color: #1E2761; border: 1.5px solid #1E2761; }
+  .nav-btn.secondary:hover { background: #EEF0FA; }
+  /* ── HJEMKNAPP ── */
+  .home-btn {
+    position: fixed;
+    top: 14px;
+    right: 20px;
+    z-index: 100;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(30,39,97,0.18);
+    border: 1.5px solid rgba(30,39,97,0.35);
+    color: #1E2761;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .home-btn:hover { background: rgba(30,39,97,0.28); }
+  .home-btn svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+<a class="home-btn" href="index.html" title="Forsiden">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/>
+    <path d="M9 21V12h6v9"/>
+  </svg>
+</a>
+<div class="slide">
+
+  <div class="header">
+    <h1>Grunnleggende digitale ferdigheter i skolen</h1>
+    <div class="header-sub">Rammeverk for grunnleggende ferdigheter (Udir 2017) — fem områder som skal ivaretas i alle fag · Klikk for å åpne fagplan eller rammeverk</div>
+  </div>
+
+  <div class="body">
+
+    <!-- VENSTRE: fem ferdighetsområder med SVG-ikoner -->
+    <div class="left">
+      <a class="col-title" href="https://www.udir.no/laring-og-trivsel/rammeverk/rammeverk-for-grunnleggende-ferdigheter/2.1-digitale-ferdigheter" target="_blank">
+        Rammeverket — fem ferdighetsområder ↗
+      </a>
+
+      <!-- 1: Bruke og forstå — skjerm/klikk-ikon -->
+      <a class="area" href="ferdighet_1_bruke_forstaa.html" target="_blank">
+        <div class="area-icon" style="background:#EEF0FA;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1E2761" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8M12 17v4"/>
+            <circle cx="12" cy="10" r="2" fill="#1E2761" stroke="none"/>
+            <path d="M12 8v0M12 12v0" stroke="#1E2761" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="area-content">
+          <div class="area-title">1 · Bruke og forstå</div>
+          <div class="area-desc">Bruke og navigere digitale ressurser, utstyr og programvare hensiktsmessig. Ivareta informasjons- og datasikkerhet.</div>
+          <div class="area-link">↗ kompetansemål per fag</div>
+        </div>
+      </a>
+
+      <!-- 2: Finne og behandle — forstørrelsesglass/filter -->
+      <a class="area" href="ferdighet_2_finne_behandle.html" target="_blank">
+        <div class="area-icon" style="background:#EAF6F0;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="10" cy="10" r="6"/>
+            <path d="M14.5 14.5L20 20"/>
+            <path d="M7 10h6M10 7v6" stroke="#1D9E75" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="area-content">
+          <div class="area-title">2 · Finne og behandle</div>
+          <div class="area-desc">Tilegne seg, behandle, tolke og vurdere informasjon fra digitale kilder. Utøve kildekritikk og bruke kildehenvisning.</div>
+          <div class="area-link">↗ kompetansemål per fag</div>
+        </div>
+      </a>
+
+      <!-- 3: Produsere og bearbeide — penn/blyant -->
+      <a class="area" href="ferdighet_3_produsere_bearbeide.html" target="_blank">
+        <div class="area-icon" style="background:#F5F0FF;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#7B61FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9"/>
+            <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+          </svg>
+        </div>
+        <div class="area-content">
+          <div class="area-title">3 · Produsere og bearbeide</div>
+          <div class="area-desc">Være kreativ og skapende med digitale ressurser. Lage digitale produkter ved nyskaping eller videreutvikling.</div>
+          <div class="area-link">↗ kompetansemål per fag</div>
+        </div>
+      </a>
+
+      <!-- 4: Kommunisere og samhandle — prat/bobler -->
+      <a class="area" href="ferdighet_4_kommunisere_samhandle.html" target="_blank">
+        <div class="area-icon" style="background:#FFF5E6;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+          </svg>
+        </div>
+        <div class="area-content">
+          <div class="area-title">4 · Kommunisere og samhandle</div>
+          <div class="area-desc">Bruke digitale ressurser til kommunikasjon og samarbeid. Samskriving, deling og organisering av læringsarbeid.</div>
+          <div class="area-link">↗ kompetansemål per fag</div>
+        </div>
+      </a>
+
+      <!-- 5: Digital dømmekraft — skjold/vakt -->
+      <a class="area" href="ferdighet_5_doemmekraft.html" target="_blank">
+        <div class="area-icon" style="background:#FFECEC;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C0392B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4" stroke="#C0392B" stroke-width="1.8"/>
+          </svg>
+        </div>
+        <div class="area-content">
+          <div class="area-title">5 · Utøve digital dømmekraft</div>
+          <div class="area-desc">Følge regler for personvern, vise hensyn til andre på nett. Etisk refleksjon og vurdering av egen rolle digitalt.</div>
+          <div class="area-link">↗ kompetansemål per fag</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- HØYRE: fagene – avdukes -->
+    <div class="right">
+      <div class="reveal" id="fagene">
+
+        <div class="section-label">Allmenne fag</div>
+        <div class="fag-grid">
+          <a class="fag-card" href="https://www.udir.no/lk20/nor01-07" target="_blank">
+            <div class="fag-name">Norsk</div>
+            <div class="fag-note">Sammensatte tekster, kildekritikk</div>
+            <div class="fag-arrow">↗ fagplan</div>
+          </a>
+          <a class="fag-card" href="https://www.udir.no/lk20/saf01-04" target="_blank">
+            <div class="fag-name">Samfunnsfag</div>
+            <div class="fag-note">Særlig ansvar for digitalt medborgerskap</div>
+            <div class="fag-arrow">↗ fagplan</div>
+          </a>
+          <a class="fag-card" href="https://www.udir.no/lk20/mat01-05" target="_blank">
+            <div class="fag-name">Matematikk</div>
+            <div class="fag-note">Programmering og algoritmisk tenkning</div>
+            <div class="fag-arrow">↗ fagplan</div>
+          </a>
+          <a class="fag-card" href="https://www.udir.no/lk20/nat01-04" target="_blank">
+            <div class="fag-name">Naturfag</div>
+            <div class="fag-note">Digitale måleverktøy, databehandling</div>
+            <div class="fag-arrow">↗ fagplan</div>
+          </a>
+          <a class="fag-card" href="https://www.udir.no/lk20/eng01-05" target="_blank">
+            <div class="fag-name">Engelsk</div>
+            <div class="fag-note">Digitale engelskspråklige kilder</div>
+            <div class="fag-arrow">↗ fagplan</div>
+          </a>
+          <a class="fag-card" href="https://www.udir.no/lk20/rle01-03" target="_blank">
+            <div class="fag-name">KRLE</div>
+            <div class="fag-note">Kildekritikk, etikk og teknologi</div>
+            <div class="fag-arrow">↗ fagplan</div>
+          </a>
+        </div>
+
+        <div class="gap-row"></div>
+
+        <div class="section-label">Praktiske og estetiske fag</div>
+        <div class="fag-grid">
+          <a class="fag-card practical" href="https://www.udir.no/lk20/mus01-02" target="_blank">
+            <div class="fag-name">Musikk</div>
+            <div class="fag-note">Digitale verktøy, lydproduksjon</div>
+            <div class="fag-arrow">↗ fagplan</div>
+          </a>
+          <a class="fag-card practical" href="https://www.udir.no/lk20/khv01-02" target="_blank">
+            <div class="fag-name">Kunst og håndverk</div>
+            <div class="fag-note">Design- og produksjonsverktøy</div>
+            <div class="fag-arrow">↗ fagplan</div>
+          </a>
+          <a class="fag-card practical" href="https://www.udir.no/lk20/mhe01-02" target="_blank">
+            <div class="fag-name">Mat og helse</div>
+            <div class="fag-note">Digitale informasjonskilder</div>
+            <div class="fag-arrow">↗ fagplan</div>
+          </a>
+          <a class="fag-card practical" href="https://www.udir.no/lk20/kro01-05" target="_blank">
+            <div class="fag-name">Kroppsøving</div>
+            <div class="fag-note">Begrenset digital forankring</div>
+            <div class="fag-arrow">↗ fagplan</div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="source-bar">
+    <span class="source-text">Kilde: Rammeverk for grunnleggende ferdigheter (Udir 2017) · LK20 (udir.no)</span>
+    <span class="hint" id="hint">→ for å vise fagene · Esc → forsiden</span>
+  </div>
+
+  <div class="nav-bar">
+    <a class="nav-btn secondary" href="index.html">← Forsiden</a>
+    <a class="nav-btn secondary" href="nordtun_slide.html">← Trues skolen av digitalisering?</a>
+    <a class="nav-btn" href="lk20_digitale_ferdigheter_matrise.html">Se analysen →</a>
+  </div>
+
+</div>
+
+<script>
+  let shown = false;
+
+  function next() {
+    if (!shown) {
+      document.getElementById('fagene').classList.add('visible');
+      document.getElementById('hint').textContent = 'Klikk et fagkort for å åpne fagplanen';
+      shown = true;
+    }
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if ([' ', 'Enter', 'ArrowRight', 'ArrowDown'].includes(e.key)) {
+      e.preventDefault();
+      next();
+    }
+    if (e.key === 'Escape') {
+      window.location.href = 'index.html';
+    }
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('a')) next();
+  });
+</script>
+</body>
+</html>

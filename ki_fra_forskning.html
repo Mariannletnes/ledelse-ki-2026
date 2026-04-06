@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hva sier forskningen – elevenes egne ord</title>
+<style>
+  :root {
+    --navy: #1E2761;
+    --navy-dark: #161e4e;
+    --green: #1D9E75;
+    --green-light: #5DCAA5;
+    --bg: #F0F2F7;
+    --text: #1a1a2e;
+    --muted: #5a6080;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+
+  .header { background: var(--navy); padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .kicker { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green-light); font-weight: 600; }
+
+  .body { flex: 1; padding: 32px 48px 24px; display: flex; flex-direction: column; gap: 22px; max-width: 1200px; width: 100%; margin: 0 auto; }
+
+  /* Avduking */
+  .reveal { opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s linear 0.45s; }
+  .reveal.visible { opacity: 1; visibility: visible; transform: translateY(0); transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s; }
+
+  .intro { }
+  .intro h1 { font-size: 1.7rem; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+  .intro p { font-size: 0.95rem; color: var(--muted); line-height: 1.65; max-width: 800px; }
+
+  /* Tre narrativ-kort */
+  .narratives { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+
+  .narr-card { background: white; border-radius: 14px; border: 1.5px solid #D0D8EC; padding: 22px 20px; display: flex; flex-direction: column; gap: 14px; }
+
+  .narr-num { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; color: var(--green); }
+  .narr-title { font-size: 1.05rem; font-weight: 700; color: var(--navy); line-height: 1.3; }
+  .narr-tagline { font-size: 0.82rem; font-style: italic; color: var(--muted); }
+
+  /* Elevutsagn */
+  .quote-block { background: var(--bg); border-left: 3px solid var(--green-light); border-radius: 0 8px 8px 0; padding: 12px 14px; }
+  .quote-text { font-size: 0.84rem; color: var(--text); line-height: 1.65; font-style: italic; }
+  .quote-attr { font-size: 0.72rem; color: var(--muted); margin-top: 6px; font-weight: 600; }
+
+  .narr-insight { font-size: 0.82rem; color: var(--text); line-height: 1.6; }
+  .narr-insight strong { color: var(--navy); }
+
+  /* KI-skam boks */
+  .shame-badge { display: inline-flex; align-items: center; gap: 6px; background: #FFF0F0; border: 1px solid #E8A0A0; border-radius: 6px; padding: 4px 10px; font-size: 0.75rem; font-weight: 600; color: #8B2020; }
+  .direction-badge { display: inline-flex; align-items: center; gap: 6px; background: #E8FAF4; border: 1px solid #9FE1CB; border-radius: 6px; padding: 4px 10px; font-size: 0.75rem; font-weight: 600; color: var(--green); }
+
+  /* Kobling til agenter */
+  .agent-box { background: var(--navy); border-radius: 12px; padding: 20px 28px; display: flex; align-items: flex-start; gap: 20px; }
+  .agent-box .icon { font-size: 1.8rem; flex-shrink: 0; }
+  .agent-box .text { color: #fff; }
+  .agent-box .text h3 { font-size: 1rem; font-weight: 700; color: var(--green-light); margin-bottom: 6px; }
+  .agent-box .text p { font-size: 0.87rem; line-height: 1.65; color: rgba(255,255,255,0.85); }
+  .agent-box .text em { color: var(--green-light); font-style: normal; font-weight: 600; }
+
+  .nav-bar { background: white; border-top: 1.5px solid #e0e4f0; padding: 16px 48px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .nav-bar a { border-radius: 50px; padding: 10px 24px; font-size: 0.88rem; font-weight: 600; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center; transition: background 0.2s; }
+  .btn-prev { background: transparent; border: 2px solid var(--navy); color: var(--navy); }
+  .btn-prev:hover { background: #f0f2f7; }
+  .btn-next { background: var(--navy); color: #fff; }
+  .btn-next:hover { background: var(--navy-dark); }
+  .step-hint { font-size: 0.76rem; color: var(--muted); }
+
+  .home-btn { position: fixed; top: 14px; right: 20px; z-index: 100; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: #fff; text-decoration: none; }
+  .home-btn svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+
+<a class="home-btn" href="index.html">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+</a>
+
+<div class="header">
+  <span class="kicker">Hva forskningen viser — fra elevenes egne ord</span>
+</div>
+
+<div class="body">
+
+  <!-- Tittel -->
+  <div class="intro reveal" id="s0">
+    <h1>Tre ting vi lærte da elevene laget podcast med KI</h1>
+    <p>VG1-elever i naturfag og norsk. Tverrfaglig prosjekt om bioteknologi — med fire KI-agenter. Dette er ikke teori. Dette er hva elevene faktisk fortalte oss.</p>
+  </div>
+
+  <!-- Tre narrativer -->
+  <div class="narratives">
+
+    <!-- NARRATIV 1 -->
+    <div class="narr-card reveal" id="s1">
+      <div>
+        <div class="narr-num">Narrativ 1</div>
+        <div class="narr-title">Eierskap, mestring og tvil</div>
+        <div class="narr-tagline">Hva er «ekte» læring når KI gjør jobben?</div>
+      </div>
+      <div class="quote-block">
+        <div class="quote-text">«Jeg vil vite at det er min kunnskap læreren ser. For det føles som juks.»</div>
+        <div class="quote-attr">— Nina, elev i prosjektet</div>
+      </div>
+      <div class="quote-block">
+        <div class="quote-text">«Den mestringsfølelsen er nok mindre hvis du har brukt KI til å finne svaret.»</div>
+        <div class="quote-attr">— Harald, elev i prosjektet</div>
+      </div>
+      <div class="narr-insight">Elevene skiller mellom <strong>ekte mestring</strong> gjennom egeninnsats og en annen type mestring — å mestre selve verktøyet. Begge er reelle, men bare den første gir eierskap til kunnskapen.</div>
+    </div>
+
+    <!-- NARRATIV 2 -->
+    <div class="narr-card reveal" id="s2">
+      <div>
+        <div class="narr-num">Narrativ 2</div>
+        <div class="narr-title">Strategier, etikk og digital dømmekraft</div>
+        <div class="narr-tagline">Fra effektivitet til kritisk vurdering</div>
+      </div>
+      <div class="quote-block">
+        <div class="quote-text">«Du må faktisk kunne stoffet hvis du skal bruke KI.»</div>
+        <div class="quote-attr">— Nina, elev i prosjektet</div>
+      </div>
+      <div class="quote-block">
+        <div class="quote-text">«Vi er så oppdratt til å være kildekritiske at i det ting går for fort, tenker vi: oj...»</div>
+        <div class="quote-attr">— Irene, elev i prosjektet</div>
+      </div>
+      <div class="narr-insight">Elevene utvikler det vi kaller <strong>digital dømmekraft</strong> — evnen til å stille spørsmål til KI, verifisere svar og vurdere egne læringsstrategier. Dette er undring og perspektivering i praksis.</div>
+    </div>
+
+    <!-- NARRATIV 3 -->
+    <div class="narr-card reveal" id="s3">
+      <div>
+        <div class="narr-num">Narrativ 3</div>
+        <div class="narr-title">Fellesskapsnormer og samarbeid</div>
+        <div class="narr-tagline">Fra KI-skam til åpen, legitim praksis</div>
+      </div>
+      <div class="quote-block">
+        <div class="quote-text">«Når KI har riktig svar — er det ingenting å diskutere.»</div>
+        <div class="quote-attr">— Lise, elev i prosjektet</div>
+      </div>
+      <div class="quote-block">
+        <div class="quote-text">«Vi kunne ha bedt KI om å lage temaer vi måtte diskutere — da hadde vi diskutert mye mer.»</div>
+        <div class="quote-attr">— Nina, elev i prosjektet</div>
+      </div>
+      <div class="narr-insight">KI kan <strong>drepe samtalen</strong> — eller starte den. Ninas innsikt viser at KI kan brukes som pedagogisk partner som <em>designer</em> diskusjonen, ikke bare leverer svar.</div>
+    </div>
+
+  </div>
+
+  <!-- Kobling til agenter -->
+  <div class="agent-box reveal" id="s4">
+    <span class="icon">🤖</span>
+    <div class="text">
+      <h3>I år prøver vi dette med fire KI-agenter</h3>
+      <p>
+        Agent 1 hjelper elevene inn i oppgaven · Agent 2 støtter læring, analyse og sortering · Agent 3 hjelper med gjennomføring · Agent 4 tar et grundig tilbakeblikk på hele læringsprosessen.<br><br>
+        Agentene er designet for å <em>stille spørsmål</em> fremfor å gi svar — for å holde det epistemiske arbeidet hos eleven, ikke hos maskinen. Det er dette forskningen sier er avgjørende.
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<div class="nav-bar">
+  <a class="btn-prev" href="ki_laeringsressurs.html">← KI som læringsressurs</a>
+  <span class="step-hint" id="hint">→ neste avduking &nbsp;·&nbsp; Esc → forsiden</span>
+  <a class="btn-next" href="ki_avslutning.html">Tre hovedpoenger →</a>
+</div>
+
+<script>
+const steps = ['s1','s2','s3','s4'];
+let current = -1;
+function next() {
+  if (current < steps.length - 1) {
+    current++;
+    document.getElementById(steps[current]).classList.add('visible');
+    if (current >= steps.length - 1) document.getElementById('hint').textContent = '';
+  }
+}
+function prev() {
+  if (current >= 0) { document.getElementById(steps[current]).classList.remove('visible'); current--; }
+}
+document.addEventListener('keydown', e => {
+  if ([' ','Enter','ArrowRight','ArrowDown'].includes(e.key)) { e.preventDefault(); next(); }
+  if (['ArrowLeft','ArrowUp'].includes(e.key)) { e.preventDefault(); prev(); }
+  if (e.key === 'Escape') location.href = 'index.html';
+});
+document.addEventListener('click', e => { if (e.target.tagName !== 'A') next(); });
+</script>
+</body>
+</html>
