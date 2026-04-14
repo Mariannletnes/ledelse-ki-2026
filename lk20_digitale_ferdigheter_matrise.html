@@ -3,275 +3,233 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ivaretar LK20 grunnleggende digitale ferdigheter?</title>
+<title>Fra vedtatt til gjennomført læreplan</title>
 <style>
+  :root { --navy: #1E2761; --navy-dark: #161e4e; --green: #1D9E75; --green-light: #5DCAA5; --bg: #F0F2F7; --card: #FAFAFA; --text: #1a1a2e; --muted: #5a6080; --red: #C0392B; --amber: #E8A020; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #F0F2F7; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 32px 16px; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
 
-  .slide { background: #FAFAFA; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.10); max-width: 1100px; width: 100%; }
+  .header { background: var(--navy); padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .kicker { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green-light); font-weight: 600; }
 
-  .header { background: #1E2761; padding: 20px 28px 16px; }
-  .header h1 { font-size: 24px; font-weight: 600; color: #fff; margin-bottom: 10px; }
-  .header-sub { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
-  .subtitle { font-size: 11px; color: rgba(255,255,255,0.60); font-style: italic; }
-  .legend { display: flex; gap: 16px; flex-wrap: wrap; }
-  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: rgba(255,255,255,0.88); white-space: nowrap; }
-  .dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
-  .dot-green { background: #1D9E75; }
-  .dot-amber { background: #E8A020; }
-  .dot-red   { background: #C0392B; }
+  .body { flex: 1; padding: 32px 48px 24px; display: flex; flex-direction: column; gap: 24px; max-width: 1200px; width: 100%; margin: 0 auto; }
 
-  .matrix { padding: 16px 20px 12px; overflow-x: auto; }
+  .reveal { opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s linear 0.45s; }
+  .reveal.visible { opacity: 1; visibility: visible; transform: translateY(0); transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s; }
 
-  table { width: 100%; border-collapse: collapse; min-width: 750px; }
+  /* Tittel */
+  .slide-title { font-size: 1.8rem; font-weight: 800; color: var(--navy); line-height: 1.2; }
+  .slide-sub { font-size: 1rem; color: var(--muted); margin-top: 6px; }
 
-  thead th {
-    background: #1E2761; color: #fff;
-    font-size: 10px; font-weight: 500;
-    padding: 9px 5px; text-align: center;
-    border: 1px solid #2d3a7a;
-    line-height: 1.3; vertical-align: bottom;
-  }
-  thead th.label-col {
-    text-align: left; padding-left: 12px;
-    width: 230px; min-width: 210px; vertical-align: bottom;
-  }
+  /* ICILS-nedgang */
+  .icils-strip { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 0; background: var(--navy); border-radius: 12px; overflow: hidden; }
+  .icils-year { padding: 20px 28px; text-align: center; }
+  .icils-year .year { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 6px; }
+  .icils-year .score { font-size: 3rem; font-weight: 900; line-height: 1; }
+  .icils-year .score.good { color: var(--green-light); }
+  .icils-year .score.bad { color: #F5A0A0; }
+  .icils-year .label { font-size: 0.75rem; color: rgba(255,255,255,0.55); margin-top: 4px; line-height: 1.5; }
+  .icils-year .pct { font-size: 0.85rem; font-weight: 700; margin-top: 8px; }
+  .icils-year .pct.good { color: var(--green-light); }
+  .icils-year .pct.bad { color: #F5A0A0; }
 
-  /* Avduking */
-  .reveal {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.45s ease, transform 0.45s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .icils-arrow { padding: 20px; text-align: center; border-left: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(255,255,255,0.1); }
+  .icils-arrow .arrow-icon { font-size: 2rem; color: #F5A0A0; }
+  .icils-arrow .arrow-label { font-size: 0.72rem; color: rgba(255,255,255,0.5); margin-top: 6px; text-align: center; line-height: 1.5; }
+  .icils-arrow svg { width: 40px; height: 40px; }
 
-  /* Rader */
-  tbody tr { transition: opacity 0.45s ease, transform 0.45s ease; }
+  /* To kolonner */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 
-  .row-odd  { background: #F4F6FB; }
-  .row-even { background: #FFFFFF; }
-  .row-green { background: #EAF6F0; }
-  .row-warn  { background: #FFF9F0; }
+  /* Fragmenterings-kort */
+  .frag-card { background: white; border-radius: 12px; border: 1.5px solid #D0D8EC; padding: 22px 24px; display: flex; flex-direction: column; gap: 14px; }
+  .frag-title { font-size: 1rem; font-weight: 800; color: var(--navy); }
+  .frag-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
 
-  tbody td { border: 1px solid #D0D8EC; vertical-align: middle; }
+  .fag-fragments { display: flex; flex-wrap: wrap; gap: 8px; }
+  .frag-tag { border-radius: 6px; padding: 5px 10px; font-size: 0.75rem; font-weight: 600; }
+  .frag-tag.saf { background: #EEF0FA; color: var(--navy); }
+  .frag-tag.nor { background: #EEF0FA; color: var(--navy); }
+  .frag-tag.kro { background: #F0FBF7; color: #0F6E56; }
+  .frag-tag.mus { background: #F0FBF7; color: #0F6E56; }
+  .frag-tag.kh { background: #F0FBF7; color: #0F6E56; }
+  .frag-tag.krle { background: #EEF0FA; color: var(--navy); }
+  .frag-tag.mat { background: #EEF0FA; color: var(--navy); }
+  .frag-tag.nat { background: #EEF0FA; color: var(--navy); }
+  .frag-tag.eng { background: #EEF0FA; color: var(--navy); }
+  .frag-tag.mh { background: #F0FBF7; color: #0F6E56; }
 
-  .row-label { padding: 9px 12px; width: 230px; min-width: 210px; }
-  .row-title  { font-size: 11.5px; font-weight: 600; color: #1E2761; margin-bottom: 2px; }
-  .row-sub    { font-size: 9px; color: #4A5568; font-style: italic; line-height: 1.4; }
-  .row-note        { font-size: 8.5px; color: #C0392B; margin-top: 3px; font-weight: 500; }
-  .row-note-amber  { font-size: 8.5px; color: #92550A; margin-top: 2px; font-weight: 500; }
-  .row-note-green  { font-size: 8.5px; color: #0F6E56; margin-top: 3px; font-weight: 500; }
+  .frag-quote { font-size: 0.88rem; font-style: italic; color: var(--navy); border-left: 3px solid var(--green-light); padding-left: 14px; line-height: 1.65; }
 
-  .cell { text-align: center; padding: 8px 4px; }
-  .circle { width: 18px; height: 18px; border-radius: 50%; display: inline-block; }
-  .c-green { background: #1D9E75; }
-  .c-amber { background: #E8A020; }
-  .c-red   { background: #C0392B; }
+  /* Goodlad-kort */
+  .goodlad-card { background: var(--navy); border-radius: 12px; padding: 22px 24px; display: flex; flex-direction: column; gap: 16px; }
+  .goodlad-title { font-size: 1rem; font-weight: 800; color: white; }
 
-  /* Tre sannhets-kort */
-  .three-truths { margin: 4px 20px 14px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-  .truth-card { border-radius: 8px; padding: 10px 12px; font-size: 10.5px; line-height: 1.55; }
-  .truth-card.green { background: #E8F8F3; border: 1px solid #1D9E75; color: #0A4A35; }
-  .truth-card.amber { background: #FFF3DC; border: 1px solid #E8A020; color: #5D3A00; }
-  .truth-card.red   { background: #FEECEB; border: 1px solid #C0392B; color: #6B1A14; }
-  .truth-card .tc-label { font-size: 9px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 4px; opacity: 0.75; }
+  .goodlad-levels { display: flex; flex-direction: column; gap: 8px; }
+  .goodlad-level { display: flex; align-items: center; gap: 12px; }
+  .level-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .level-dot.green { background: var(--green-light); }
+  .level-dot.amber { background: var(--amber); }
+  .level-dot.red { background: #F5A0A0; }
+  .level-text { font-size: 0.82rem; color: rgba(255,255,255,0.85); line-height: 1.5; }
+  .level-text strong { color: white; }
 
-  .source { padding: 0 20px 10px; font-size: 8.5px; color: #9AA5B4; font-style: italic; }
+  .goodlad-question { background: rgba(255,255,255,0.08); border-radius: 8px; padding: 12px 16px; font-size: 0.82rem; color: rgba(255,255,255,0.75); line-height: 1.65; border-left: 3px solid var(--green-light); }
+  .goodlad-question strong { color: var(--green-light); }
 
-  /* Navigasjon */
-  .nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px 18px; gap: 10px; }
-  .nav-btn { display: inline-flex; align-items: center; gap: 6px; background: #1E2761; color: #fff; text-decoration: none; font-size: 12px; font-weight: 500; padding: 9px 18px; border-radius: 50px; transition: opacity 0.2s; white-space: nowrap; }
-  .nav-btn:hover { opacity: 0.8; }
-  .nav-btn.secondary { background: transparent; color: #1E2761; border: 1px solid #1E2761; }
+  /* Konklusjon */
+  .concl { background: white; border-radius: 12px; border: 1.5px solid #D0D8EC; padding: 20px 24px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .concl-item { display: flex; flex-direction: column; gap: 6px; }
+  .concl-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .concl-text { font-size: 0.85rem; color: var(--text); line-height: 1.65; }
+  .concl-text strong { color: var(--navy); }
+  .concl-divider { width: 1px; background: #E0E4F0; }
 
-  .hint { font-size: 10px; color: #9AA5B4; font-style: italic; text-align: center; padding: 6px 0 2px; }
+  .nav-bar { background: white; border-top: 1.5px solid #e0e4f0; padding: 16px 48px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .nav-bar a { border-radius: 50px; padding: 10px 24px; font-size: 0.88rem; font-weight: 600; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center; transition: background 0.2s; }
+  .btn-prev { background: transparent; border: 2px solid var(--navy); color: var(--navy); }
+  .btn-prev:hover { background: #f0f2f7; }
+  .btn-next { background: var(--navy); color: #fff; }
+  .btn-next:hover { background: var(--navy-dark); }
+  .step-hint { font-size: 0.76rem; color: var(--muted); }
+
+  .home-btn { position: fixed; top: 14px; right: 20px; z-index: 100; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: #fff; text-decoration: none; }
+  .home-btn svg { width: 16px; height: 16px; }
 </style>
 </head>
 <body>
-<div class="slide">
 
-  <div class="header">
-    <h1>Ivaretar LK20 grunnleggende digitale ferdigheter?</h1>
-    <div class="header-sub">
-      <span class="subtitle">Rammeverk for grunnleggende ferdigheter (Udir 2017) × kompetansemål i grunnskolefagene</span>
-      <div class="legend">
-        <div class="legend-item"><span class="dot dot-green"></span>Eksplisitt kompetansemål</div>
-        <div class="legend-item"><span class="dot dot-amber"></span>Implisitt / forutsatt</div>
-        <div class="legend-item"><span class="dot dot-red"></span>Ingen dekning</div>
+<a class="home-btn" href="index.html">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+</a>
+
+<div class="header">
+  <span class="kicker">LK20 · ICILS · Goodlad</span>
+</div>
+
+<div class="body">
+
+  <!-- Tittel -->
+  <div class="reveal visible" id="s0">
+    <h1 class="slide-title">Alle har et stykke av puslespillet.<br>Ingen har bildet på esken.</h1>
+    <p class="slide-sub">Planen er ikke problemet. Teknologien er ikke problemet. Det er operasjonaliseringen.</p>
+  </div>
+
+  <!-- ICILS-nedgang -->
+  <div class="icils-strip reveal" id="s1">
+    <div class="icils-year">
+      <div class="year">ICILS 2013</div>
+      <div class="score good">537</div>
+      <div class="label">poeng i digital kompetanse</div>
+      <div class="pct good">24% på laveste nivå</div>
+    </div>
+    <div class="icils-arrow">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 12 L20 28 L32 12" stroke="#F5A0A0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="arrow-label">Markant<br>nedgang<br>på 10 år</div>
+    </div>
+    <div class="icils-year">
+      <div class="year">ICILS 2023</div>
+      <div class="score bad">502</div>
+      <div class="label">poeng i digital kompetanse</div>
+      <div class="pct bad">40% på laveste nivå</div>
+    </div>
+  </div>
+
+  <!-- To kolonner: fragmentering + Goodlad -->
+  <div class="two-col">
+
+    <div class="frag-card reveal" id="s2">
+      <div class="frag-title">Fragmenteringen er problemet</div>
+      <div class="frag-sub">LK20 har fordelt digitale ferdigheter på tvers av alle fag. Men ingen fag ser helheten — og ingen lærer vet hva de andre gjør.</div>
+      <div class="fag-fragments">
+        <span class="frag-tag saf">Samfunnsfag: algoritmer</span>
+        <span class="frag-tag nor">Norsk: selvframstilling</span>
+        <span class="frag-tag kro">Kroppsøving: kroppsbilde</span>
+        <span class="frag-tag kh">Kunst & håndverk: opphavsrett</span>
+        <span class="frag-tag mus">Musikk: nettetikk</span>
+        <span class="frag-tag mat">Matematikk: programmering</span>
+        <span class="frag-tag nat">Naturfag: modellering</span>
+        <span class="frag-tag eng">Engelsk: global samhandling</span>
+        <span class="frag-tag krle">KRLE: dybdeetikk</span>
+        <span class="frag-tag mh">Mat og helse: forbrukerkritikk</span>
+      </div>
+      <div class="frag-quote">En elev kan gå gjennom 10 år i norsk skole og plukke opp fragmenter fra 10 fag — uten at noen har sydd det sammen til en sammenhengende digital kompetanse.</div>
+    </div>
+
+    <div class="goodlad-card reveal" id="s3">
+      <div class="goodlad-title">Goodlad: vedtatt læreplan er ikke gjennomført læreplan</div>
+      <div class="goodlad-levels">
+        <div class="goodlad-level">
+          <span class="level-dot green"></span>
+          <span class="level-text"><strong>Vedtatt læreplan</strong> — LK20 har målene. De er der.</span>
+        </div>
+        <div class="goodlad-level">
+          <span class="level-dot amber"></span>
+          <span class="level-text"><strong>Oppfattet læreplan</strong> — Hva tolker læreren at de skal gjøre?</span>
+        </div>
+        <div class="goodlad-level">
+          <span class="level-dot amber"></span>
+          <span class="level-text"><strong>Gjennomført læreplan</strong> — Hva skjer faktisk i klasserommet?</span>
+        </div>
+        <div class="goodlad-level">
+          <span class="level-dot red"></span>
+          <span class="level-text"><strong>Erfart læreplan</strong> — Hva sitter eleven igjen med? ICILS måler dette.</span>
+        </div>
+      </div>
+      <div class="goodlad-question">
+        <strong>Det avgjørende spørsmålet:</strong> Hva legges til grunn når skolen lager sin digitale røde tråd? Er den basert på kompetansemålene i fagplanene — eller på rammeverket Udir sier ikke er for lærerne?
       </div>
     </div>
+
   </div>
 
-  <div class="matrix">
-    <table>
-      <thead>
-        <tr>
-          <th class="label-col">Ferdighetsområde (Udir 2017)</th>
-          <th>Samfunns-<br>fag</th>
-          <th>Norsk</th>
-          <th>Matema-<br>tikk</th>
-          <th>Natur-<br>fag</th>
-          <th>Engelsk</th>
-          <th>KRLE</th>
-          <th>Musikk</th>
-          <th>Kunst &amp;<br>håndverk</th>
-          <th>Mat og<br>helse</th>
-          <th>Kropps-<br>øving</th>
-        </tr>
-      </thead>
-      <tbody>
-
-        <tr class="row-odd reveal" id="rad1">
-          <td class="row-label">
-            <div class="row-title">1. Bruke og forstå</div>
-            <div class="row-sub">Utstyr, programvare, navigasjon, sikkerhet</div>
-            <div class="row-note">↑ Ingen fageier — forutsettes kjent i alle fag</div>
-          </td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-        </tr>
-
-        <tr class="row-green reveal" id="rad2">
-          <td class="row-label">
-            <div class="row-title">2. Finne og behandle</div>
-            <div class="row-sub">Søke, kildekritikk, tolke informasjon</div>
-            <div class="row-note-green">↑ Det eneste området som er godt dekket</div>
-          </td>
-          <td class="cell"><span class="circle c-green"></span></td>
-          <td class="cell"><span class="circle c-green"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-green"></span></td>
-          <td class="cell"><span class="circle c-green"></span></td>
-          <td class="cell"><span class="circle c-green"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-red"></span></td>
-        </tr>
-
-        <tr class="row-even reveal" id="rad3">
-          <td class="row-label">
-            <div class="row-title">3. Produsere og bearbeide</div>
-            <div class="row-sub">Skape digitale produkter — det ICILS faktisk tester</div>
-            <div class="row-note">↑ Kun 3 fag har eksplisitte kompetansemål</div>
-          </td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-green"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-red"></span></td>
-          <td class="cell"><span class="circle c-green"></span></td>
-          <td class="cell"><span class="circle c-green"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-red"></span></td>
-        </tr>
-
-        <tr class="row-warn reveal" id="rad4">
-          <td class="row-label">
-            <div class="row-title">4. Kommunisere og samhandle</div>
-            <div class="row-sub">Samskriving, deling, digital kommunikasjon</div>
-            <div class="row-note">↑ Skjermen isolerer — elevene samhandler mindre, ikke mer</div>
-            <div class="row-note-amber">↑ Krever at læreren aktivt iscenesetter det</div>
-          </td>
-          <td class="cell"><span class="circle c-green"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-red"></span></td>
-          <td class="cell"><span class="circle c-red"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-red"></span></td>
-          <td class="cell"><span class="circle c-red"></span></td>
-          <td class="cell"><span class="circle c-red"></span></td>
-          <td class="cell"><span class="circle c-red"></span></td>
-          <td class="cell"><span class="circle c-red"></span></td>
-        </tr>
-
-        <tr class="row-odd reveal" id="rad5">
-          <td class="row-label">
-            <div class="row-title">5. Utøve digital dømmekraft</div>
-            <div class="row-sub">Personvern, etikk, ansvar på nett</div>
-            <div class="row-note-amber">↑ Selvbilde: vi er gode på dette</div>
-            <div class="row-note">↑ Virkelighet: kildekritikk i 2 fag — etikk, AI og algoritmer mangler</div>
-          </td>
-          <td class="cell"><span class="circle c-green"></span></td>
-          <td class="cell"><span class="circle c-green"></span></td>
-          <td class="cell"><span class="circle c-red"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-amber"></span></td>
-          <td class="cell"><span class="circle c-red"></span></td>
-          <td class="cell"><span class="circle c-red"></span></td>
-          <td class="cell"><span class="circle c-red"></span></td>
-          <td class="cell"><span class="circle c-red"></span></td>
-        </tr>
-
-      </tbody>
-    </table>
-  </div>
-
-  <div class="three-truths">
-    <div class="truth-card green reveal" id="kort1">
-      <div class="tc-label">Det vi trodde vi var gode på</div>
-      Digital dømmekraft ser grønn ut i fagplanene — men det som faktisk undervises er nesten utelukkende kildekritikk i to fag. Etikk, personvern, algoritmers makt og AI-håndtering mangler.
+  <!-- Konklusjon -->
+  <div class="concl reveal" id="s4">
+    <div class="concl-item">
+      <div class="concl-label">Ikke teknologien</div>
+      <div class="concl-text">Norge er blant landene med <strong>mest digital teknologi i skolen</strong>. Likevel synker resultatene. Tilgang til verktøy løser ikke problemet.</div>
     </div>
-    <div class="truth-card amber reveal" id="kort2">
-      <div class="tc-label">Det vi også trodde vi var gode på</div>
-      Elever produserer og samarbeider digitalt hele tiden — tenkte vi. Men læreplanen har nesten ingen eksplisitte mål for produksjon, og skjermen isolerer elevene i stedet for å samle dem. ICILS viser at det er nettopp produksjon de strever mest med.
+    <div class="concl-divider"></div>
+    <div class="concl-item">
+      <div class="concl-label">Ikke læreplanen</div>
+      <div class="concl-text">LK20 har eksplisitte mål om personvern, etikk, algoritmer og produksjon. <strong>Planen er ikke mangelfull.</strong> Operasjonaliseringen er.</div>
     </div>
-    <div class="truth-card red reveal" id="kort3">
-      <div class="tc-label">Det ingen har tatt ansvar for ennå</div>
-      KI krever et nytt lag av digital dømmekraft som ikke finnes i noen kompetansemål. Når KI fyller tomrommet læreplanen aldri tok ansvar for, forsvinner også behovet for å rette det opp.
+    <div class="concl-divider"></div>
+    <div class="concl-item">
+      <div class="concl-label">Men PFDK</div>
+      <div class="concl-text">Det er <strong>profesjonsfaglig digital kompetanse</strong> som mangler — evnen til å designe læreprosesser der teknologien er pedagogisk forankret i faget. Det er et lederansvar.</div>
     </div>
-  </div>
-
-  <div class="source reveal" id="nav-reveal">Kilder: LK20 kompetansemål (udir.no) · Rammeverk for grunnleggende ferdigheter (Udir 2017) · ICILS 2023 · EDUCATE 2026 · Letnes (2025)</div>
-
-  <div class="hint" id="hint">Trykk mellomrom, enter eller piltast for neste →</div>
-
-  <div class="nav-bar reveal" id="nav">
-    <a class="nav-btn secondary" href="index.html">← Forsiden</a>
-    <a class="nav-btn secondary" href="lk20_rammeverk_intro.html">← Rammeverk og fag</a>
-    <a class="nav-btn" href="teknologi_tabell_2.html">Hva viste analysen? →</a>
   </div>
 
 </div>
 
+<div class="nav-bar">
+  <a class="btn-prev" href="lk20_rammeverk_intro.html">← Rammeverk og fag</a>
+  <span class="step-hint" id="hint">→ neste avduking &nbsp;·&nbsp; Esc → forsiden</span>
+  <a class="btn-next" href="teknologi_tabell_2.html">Hva viste analysen? →</a>
+</div>
+
 <script>
-  const steps = ['rad1','rad2','rad3','rad4','rad5','kort1','kort2','kort3','nav-reveal','nav'];
-  let current = -1;
-
-  function next() {
+const steps = ['s1','s2','s3','s4'];
+let current = -1;
+function next() {
+  if (current < steps.length - 1) {
     current++;
-    if (current < steps.length) {
-      document.getElementById(steps[current]).classList.add('visible');
-    }
-    if (current >= steps.length - 1) {
-      document.getElementById('hint').textContent = '';
-    }
+    document.getElementById(steps[current]).classList.add('visible');
+    if (current >= steps.length - 1) document.getElementById('hint').textContent = '';
   }
-
-  document.addEventListener('keydown', function(e) {
-    if (e.key === ' ' || e.key === 'Enter' || e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-      e.preventDefault();
-      next();
-    }
-  });
-
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('a')) next();
-  });
+}
+function prev() {
+  if (current >= 0) { document.getElementById(steps[current]).classList.remove('visible'); current--; }
+}
+document.addEventListener('keydown', e => {
+  if ([' ','Enter','ArrowRight','ArrowDown'].includes(e.key)) { e.preventDefault(); next(); }
+  if (['ArrowLeft','ArrowUp'].includes(e.key)) { e.preventDefault(); prev(); }
+  if (e.key === 'Escape') location.href = 'index.html';
+});
+document.addEventListener('click', e => { if (e.target.tagName !== 'A') next(); });
 </script>
-
 </body>
 </html>
