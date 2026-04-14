@@ -29,7 +29,7 @@
   .header h1 { font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 5px; line-height: 1.2; }
   .header-sub { font-size: 11px; color: rgba(255,255,255,0.55); font-style: italic; }
 
-  .body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .body { display: grid; grid-template-columns: 2fr 3fr; gap: 0; }
 
   /* ── VENSTRE: ferdighetsområder ─────────────── */
   .left { padding: 20px 24px; border-right: 1px solid #D0D8EC; }
@@ -88,7 +88,8 @@
   }
   .section-label + .section-label { margin-top: 16px; }
 
-  .fag-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 0; }
+  .fag-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; margin-bottom: 0; }
+  .fag-grid.to-kol { grid-template-columns: 1fr 1fr; }
 
   .fag-card {
     border: 1px solid #E0E4EF;
@@ -110,7 +111,8 @@
 
   .fag-name { font-size: 12.5px; font-weight: 700; color: #1E2761; }
   .fag-note { font-size: 9.5px; color: #4A5568; margin-top: 2px; font-style: italic; line-height: 1.4; }
-  .fag-arrow { font-size: 9px; color: #1E2761; opacity: 0.30; margin-top: 4px; }
+  .fag-card ul { font-size: 8.5px; color: #4A5568; margin-top: 5px; padding-left: 12px; line-height: 1.55; }
+  .fag-card.practical ul { color: #2d7a5f; }
 
   .gap-row { height: 14px; }
 
@@ -269,32 +271,67 @@
         <div class="fag-grid">
           <a class="fag-card" href="https://www.udir.no/lk20/nor01-07" target="_blank">
             <div class="fag-name">Norsk</div>
-            <div class="fag-note">Sammensatte tekster, kildekritikk</div>
+            <div class="fag-note">Sjef for kommunikasjon, tekstproduksjon og multimodalitet</div>
+            <ul style="font-size:9px;color:#4A5568;margin-top:5px;padding-left:13px;line-height:1.6;">
+              <li>Tastaturskriving og sammensatte tekster</li>
+              <li>Kombinere skrift, bilde og andre uttrykksformer</li>
+              <li>Etisk fremstilling av seg selv og andre digitalt</li>
+              <li>Hvordan digitale medier endrer språk og kommunikasjon</li>
+            </ul>
             <div class="fag-arrow">↗ fagplan</div>
           </a>
           <a class="fag-card" href="https://www.udir.no/lk20/saf01-04" target="_blank">
             <div class="fag-name">Samfunnsfag</div>
-            <div class="fag-note">Særlig ansvar for digitalt medborgerskap</div>
+            <div class="fag-note">Sjef for digitalt medborgerskap, systemforståelse og juss</div>
+            <ul style="font-size:9px;color:#4A5568;margin-top:5px;padding-left:13px;line-height:1.6;">
+              <li>Algoritmer, ekkokamre og ensrettede kilder</li>
+              <li>Digitale spor, personvern og retten til å bli glemt</li>
+              <li>Regler, normer og opphavsrett på nett</li>
+              <li>Digital deltakelse og samfunnsdebatten</li>
+            </ul>
             <div class="fag-arrow">↗ fagplan</div>
           </a>
           <a class="fag-card" href="https://www.udir.no/lk20/mat01-05" target="_blank">
             <div class="fag-name">Matematikk</div>
-            <div class="fag-note">Programmering og algoritmisk tenkning</div>
+            <div class="fag-note">Sjef for algoritmisk tenkning og databehandling</div>
+            <ul style="font-size:9px;color:#4A5568;margin-top:5px;padding-left:13px;line-height:1.6;">
+              <li>Algoritmer med variabler, vilkår og løkker</li>
+              <li>Regneark med cellereferanser og formler</li>
+              <li>Innhente og analysere store datamengder</li>
+              <li>Programmering for å utforske datasett</li>
+            </ul>
             <div class="fag-arrow">↗ fagplan</div>
           </a>
           <a class="fag-card" href="https://www.udir.no/lk20/nat01-04" target="_blank">
             <div class="fag-name">Naturfag</div>
-            <div class="fag-note">Digitale måleverktøy, databehandling</div>
+            <div class="fag-note">Sjef for teknologiforståelse og datamodellering</div>
+            <ul style="font-size:9px;color:#4A5568;margin-top:5px;padding-left:13px;line-height:1.6;">
+              <li>Programmere teknologiske systemer</li>
+              <li>Digitale måleverktøy i felt og forsøk</li>
+              <li>Lage og vurdere digitale modeller</li>
+              <li>Innhente og bearbeide data fra undersøkelser</li>
+            </ul>
             <div class="fag-arrow">↗ fagplan</div>
           </a>
           <a class="fag-card" href="https://www.udir.no/lk20/eng01-05" target="_blank">
             <div class="fag-name">Engelsk</div>
-            <div class="fag-note">Digitale engelskspråklige kilder</div>
+            <div class="fag-note">Sjef for global digital samhandling</div>
+            <ul style="font-size:9px;color:#4A5568;margin-top:5px;padding-left:13px;line-height:1.6;">
+              <li>Samhandle med andre på tvers av landegrenser</li>
+              <li>Hente informasjon fra engelskspråklige kilder</li>
+              <li>Kritisk vurdere engelske sakprosatekster</li>
+              <li>Bruke digitale ressurser i språklæring</li>
+            </ul>
             <div class="fag-arrow">↗ fagplan</div>
           </a>
           <a class="fag-card" href="https://www.udir.no/lk20/rle01-03" target="_blank">
             <div class="fag-name">KRLE</div>
-            <div class="fag-note">Kildekritikk, etikk og teknologi</div>
+            <div class="fag-note">Sjef for dybdeetikk og teknologirefleksjon</div>
+            <ul style="font-size:9px;color:#4A5568;margin-top:5px;padding-left:13px;line-height:1.6;">
+              <li>Etisk refleksjon over teknologibruk</li>
+              <li>Drøfte etiske utfordringer i digital kommunikasjon</li>
+              <li>Kritisk vurdering av kilder og informasjon</li>
+            </ul>
             <div class="fag-arrow">↗ fagplan</div>
           </a>
         </div>
@@ -302,25 +339,47 @@
         <div class="gap-row"></div>
 
         <div class="section-label">Praktiske og estetiske fag</div>
-        <div class="fag-grid">
+        <div class="fag-grid to-kol">
           <a class="fag-card practical" href="https://www.udir.no/lk20/mus01-02" target="_blank">
             <div class="fag-name">Musikk</div>
-            <div class="fag-note">Digitale verktøy, lydproduksjon</div>
+            <div class="fag-note">Sjef for opphavsrett og digital lydskaping</div>
+            <ul style="font-size:9px;color:#2d7a5f;margin-top:5px;padding-left:13px;line-height:1.6;">
+              <li>Opphavsrett for musikk og lydopptak</li>
+              <li>Gjøre opptak og manipulere lyd digitalt</li>
+              <li>Programmere musikalske forløp</li>
+              <li>Nettetikk i musikalske fellesskap</li>
+            </ul>
             <div class="fag-arrow">↗ fagplan</div>
           </a>
           <a class="fag-card practical" href="https://www.udir.no/lk20/khv01-02" target="_blank">
             <div class="fag-name">Kunst og håndverk</div>
-            <div class="fag-note">Design- og produksjonsverktøy</div>
+            <div class="fag-note">Sjef for visuell opphavsrett og kreativ skaping</div>
+            <ul style="font-size:9px;color:#2d7a5f;margin-top:5px;padding-left:13px;line-height:1.6;">
+              <li>Opphavsrett for bilder, film og skapende arbeid</li>
+              <li>Bildebehandling, fotokomposisjon og infografikk</li>
+              <li>Programmering for interaktivitet og visuelle uttrykk</li>
+              <li>Planlegge og presentere prosesser digitalt</li>
+            </ul>
             <div class="fag-arrow">↗ fagplan</div>
           </a>
           <a class="fag-card practical" href="https://www.udir.no/lk20/mhe01-02" target="_blank">
             <div class="fag-name">Mat og helse</div>
-            <div class="fag-note">Digitale informasjonskilder</div>
+            <div class="fag-note">Sjef for digital forbrukerkritikk</div>
+            <ul style="font-size:9px;color:#2d7a5f;margin-top:5px;padding-left:13px;line-height:1.6;">
+              <li>Vurdere matreklame og produktinformasjon digitalt</li>
+              <li>Sammenligne kostholdspåstander i media</li>
+              <li>Bruke digitale ressurser til å vurdere eget kosthald</li>
+            </ul>
             <div class="fag-arrow">↗ fagplan</div>
           </a>
           <a class="fag-card practical" href="https://www.udir.no/lk20/kro01-05" target="_blank">
             <div class="fag-name">Kroppsøving</div>
-            <div class="fag-note">Begrenset digital forankring</div>
+            <div class="fag-note">Sjef for digital kroppsbevissthet og navigering</div>
+            <ul style="font-size:9px;color:#2d7a5f;margin-top:5px;padding-left:13px;line-height:1.6;">
+              <li>Kroppsbilde og kroppsidealer i sosiale medier</li>
+              <li>Digitale kart og verktøy til orientering</li>
+              <li>Regler for digital samhandling og personvern</li>
+            </ul>
             <div class="fag-arrow">↗ fagplan</div>
           </a>
         </div>

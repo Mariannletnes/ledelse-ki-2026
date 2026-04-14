@@ -8,35 +8,51 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #F0F2F7; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 32px 16px; }
   .slide { background: #FAFAFA; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.10); max-width: 1100px; width: 100%; }
+
   .header { background: #1E2761; padding: 22px 32px 18px; }
   .header-kicker { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 6px; }
   .header h1 { font-size: 26px; font-weight: 600; color: #fff; margin-bottom: 6px; }
   .header-sub { font-size: 13px; color: rgba(255,255,255,0.60); font-style: italic; line-height: 1.5; }
-  .notice { background: #FFF8E1; border-left: 4px solid #E8A020; padding: 10px 18px; margin: 16px 28px 0; border-radius: 0 6px 6px 0; font-size: 12px; color: #5D3A00; line-height: 1.6; }
-  .body { padding: 16px 28px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .fag-card { background: #fff; border: 0.5px solid #D0D8EC; border-radius: 10px; overflow: hidden; }
-  .fag-card.practical { border-color: #9FE1CB; }
-  .fag-header { padding: 10px 14px; background: #1E2761; display: flex; align-items: center; justify-content: space-between; }
-  .fag-card.practical .fag-header { background: #0F6E56; }
-  .fag-name { font-size: 13px; font-weight: 600; color: #fff; }
-  .fag-link { font-size: 10px; color: rgba(255,255,255,0.55); text-decoration: none; }
-  .fag-link:hover { color: #fff; }
-  .trinn-group { padding: 8px 14px; border-bottom: 0.5px solid #EEF0F8; }
-  .trinn-group:last-child { border-bottom: none; }
-  .trinn-label { font-size: 9px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #9AA5B4; margin-bottom: 5px; }
-  .km { font-size: 11.5px; color: #2d3748; line-height: 1.6; padding: 3px 0; border-bottom: 0.5px solid #F4F6FB; }
-  .km:last-child { border-bottom: none; }
-  .km-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #E8A020; margin-right: 6px; flex-shrink: 0; vertical-align: middle; margin-top: -2px; }
-  .ingen { font-size: 11px; color: #C0392B; font-style: italic; padding: 4px 0; }
+
+  .notice { background: #EAF6F0; border-left: 4px solid #1D9E75; padding: 10px 18px; margin: 16px 28px 0; border-radius: 0 6px 6px 0; font-size: 12px; color: #0d4d33; line-height: 1.6; }
+
+  .body { padding: 16px 28px 20px; display: flex; flex-direction: column; gap: 16px; }
+
+  /* Tematisk seksjon */
+  .section { background: #fff; border: 1px solid #D0D8EC; border-radius: 10px; overflow: hidden; }
+  .section-header { background: #1E2761; padding: 10px 16px; display: flex; align-items: center; gap: 10px; }
+  .section-num { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.5); min-width: 20px; }
+  .section-title { font-size: 14px; font-weight: 700; color: #fff; }
+
+  .fag-rows { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; border-top: 1px solid #E8ECF5; }
+  .fag-row { padding: 12px 16px; border-right: 1px solid #E8ECF5; }
+  .fag-row:last-child { border-right: none; }
+  .fag-row:nth-child(3n) { border-right: none; }
+
+  .fag-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #1E2761; margin-bottom: 6px; }
+  .fag-tag.practical { color: #1D9E75; }
+  .fag-tag a { color: inherit; text-decoration: none; opacity: 0.5; font-size: 9px; }
+  .fag-tag a:hover { opacity: 1; }
+
+  .km-item { font-size: 11px; color: #2d3748; line-height: 1.6; padding: 3px 0; border-bottom: 0.5px solid #F4F6FB; display: flex; gap: 6px; }
+  .km-item:last-child { border-bottom: none; }
+  .km-dot { width: 6px; height: 6px; border-radius: 50%; background: #1E2761; flex-shrink: 0; margin-top: 5px; }
+  .km-dot.green { background: #1D9E75; }
+  .trinn { font-size: 9px; font-weight: 600; color: #9AA5B4; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+
+  /* Konklusjon */
+  .concl { background: #1E2761; border-radius: 8px; padding: 14px 18px; color: #fff; font-size: 12px; line-height: 1.75; }
+  .concl strong { color: #5DCAA5; }
+
   .nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 14px 28px 18px; gap: 10px; border-top: 0.5px solid #D0D8EC; }
   .nav-btn { display: inline-flex; align-items: center; gap: 6px; background: #1E2761; color: #fff; text-decoration: none; font-size: 12px; font-weight: 500; padding: 9px 18px; border-radius: 50px; transition: opacity 0.2s; white-space: nowrap; }
   .nav-btn:hover { opacity: 0.8; }
   .nav-btn.secondary { background: transparent; color: #1E2761; border: 1px solid #1E2761; }
-  .full-width { grid-column: 1 / -1; }
 </style>
 </head>
 <body>
 <div class="slide">
+
   <div class="header">
     <div class="header-kicker">Ferdighetsområde 1 av 5</div>
     <h1>Bruke og forstå</h1>
@@ -44,207 +60,108 @@
   </div>
 
   <div class="notice">
-    <strong>Vurdering:</strong> Dette området har ingen fageier og forutsettes kjent i alle fag. Kompetansemål som eksplisitt handler om bruk av digitale verktøy som redskap er markert — men målene handler primært om faglig innhold, ikke om å lære selve verktøyet. Alle fag er derfor <strong>gule</strong> i matrisen.
+    Formuleringene nedenfor er hentet fra og basert på fagplanenes beskrivelse av digitale ferdigheter og kompetansemål i LK20. Faglenker er lagt ved for verifisering. Området er organisert etter tre tematiske deler fra rammeverket.
   </div>
 
   <div class="body">
 
-    <div class="fag-card">
-      <div class="fag-header">
-        <span class="fag-name">Norsk</span>
-        <a class="fag-link" href="https://www.udir.no/lk20/nor01-07" target="_blank">↗ fagplan</a>
+    <!-- SEKSJON 1 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">1</span>
+        <span class="section-title">Bruke maskinvare, programvare og digitale formkrav</span>
       </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 2. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale ressurser i utforsking av språk og tekst</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 4. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale verktøy til å skape og redigere sammensatte tekster</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 7. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale ressurser og verktøy i skriving og tekstskaping</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 10. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke ulike kilder og digitale ressurser på en kritisk og etisk måte</div>
-      </div>
-    </div>
-
-    <div class="fag-card">
-      <div class="fag-header">
-        <span class="fag-name">Samfunnsfag</span>
-        <a class="fag-link" href="https://www.udir.no/lk20/saf01-04" target="_blank">↗ fagplan</a>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 4. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale ressurser og enkle kart i arbeid med faget</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 7. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale ressurser og kart i arbeid med faget og reflektere over geografisk informasjon</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 10. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale ressurser og kart til å hente inn og analysere informasjon</div>
+      <div class="fag-rows">
+        <div class="fag-row">
+          <div class="fag-tag">Norsk <a href="https://www.udir.no/lk20/nor01-07" target="_blank">↗</a></div>
+          <div class="trinn">2. trinn</div>
+          <div class="km-item"><span class="km-dot"></span><span>Skrive tekster for hånd og med tastatur</span></div>
+          <div class="trinn" style="margin-top:6px">7. trinn</div>
+          <div class="km-item"><span class="km-dot"></span><span>Skrive med flyt på tastatur</span></div>
+          <div class="trinn" style="margin-top:6px">Alle trinn</div>
+          <div class="km-item"><span class="km-dot"></span><span>Lage sammensatte tekster som kombinerer skrift med bilder og andre uttrykksformer</span></div>
+        </div>
+        <div class="fag-row">
+          <div class="fag-tag">Matematikk <a href="https://www.udir.no/lk20/mat01-05" target="_blank">↗</a></div>
+          <div class="trinn">Alle trinn</div>
+          <div class="km-item"><span class="km-dot"></span><span>Bruke grafteiknar, rekneark, CAS og dynamisk geometriprogram</span></div>
+          <div class="km-item"><span class="km-dot"></span><span>Forstå og bruke spesialiserte digitale formkrav i matematikkfaget</span></div>
+        </div>
+        <div class="fag-row">
+          <div class="fag-tag">Naturfag <a href="https://www.udir.no/lk20/nat01-04" target="_blank">↗</a></div>
+          <div class="trinn">Alle trinn</div>
+          <div class="km-item"><span class="km-dot"></span><span>Registrere, beregne, visualisere og modellere data fra forsøk og feltarbeid</span></div>
+          <div class="km-item"><span class="km-dot"></span><span>Dokumentere og publisere data digitalt</span></div>
+        </div>
       </div>
     </div>
 
-    <div class="fag-card">
-      <div class="fag-header">
-        <span class="fag-name">Matematikk</span>
-        <a class="fag-link" href="https://www.udir.no/lk20/mat01-05" target="_blank">↗ fagplan</a>
+    <!-- SEKSJON 2 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">2</span>
+        <span class="section-title">Navigere og velge egnede digitale ressurser</span>
       </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 2. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale verktøy i utforsking og læring</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 4. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale verktøy i beregning, modellering og problemløsning</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 7. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale verktøy i utforsking, modellering og presentasjon</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 10. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale verktøy i beregning, modellering og statistikk</div>
-      </div>
-    </div>
-
-    <div class="fag-card">
-      <div class="fag-header">
-        <span class="fag-name">Naturfag</span>
-        <a class="fag-link" href="https://www.udir.no/lk20/nat01-04" target="_blank">↗ fagplan</a>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 2. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale verktøy til å utforske og presentere naturfaglige fenomener</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 4. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale ressurser og måleutstyr i undersøkelser</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 7. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale ressurser og utstyr til å gjøre målinger og innhente data</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 10. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale ressurser og utstyr til innsamling, bearbeiding og presentasjon av data</div>
+      <div class="fag-rows">
+        <div class="fag-row">
+          <div class="fag-tag">Engelsk <a href="https://www.udir.no/lk20/eng01-05" target="_blank">↗</a></div>
+          <div class="trinn">7. trinn</div>
+          <div class="km-item"><span class="km-dot"></span><span>Bruke digitale ressurser og ulike ordbøker i språklæring og samhandling</span></div>
+          <div class="trinn" style="margin-top:6px">10. trinn</div>
+          <div class="km-item"><span class="km-dot"></span><span>Velge og bruke ulike digitale ressurser og hjelpemidler tilpasset situasjonen</span></div>
+        </div>
+        <div class="fag-row">
+          <div class="fag-tag practical">Kroppsøving <a href="https://www.udir.no/lk20/kro01-05" target="_blank">↗</a></div>
+          <div class="trinn">7. trinn</div>
+          <div class="km-item"><span class="km-dot green"></span><span>Bruke kart, digitale verktøy og tegn i naturen til å orientere seg</span></div>
+          <div class="trinn" style="margin-top:6px">10. trinn</div>
+          <div class="km-item"><span class="km-dot green"></span><span>Forstå flere typer kart og digitale verktøy og bruke dem i kjente og ukjente miljøer</span></div>
+        </div>
+        <div class="fag-row">
+          <div class="fag-tag practical">Mat og helse <a href="https://www.udir.no/lk20/mhe01-02" target="_blank">↗</a></div>
+          <div class="trinn">7. trinn</div>
+          <div class="km-item"><span class="km-dot green"></span><span>Bruke digitale ressurser til å sammenligne og drøfte produktinformasjon</span></div>
+          <div class="trinn" style="margin-top:6px">10. trinn</div>
+          <div class="km-item"><span class="km-dot green"></span><span>Bruke digitale ressurser til å vurdere eget kosthald og velge sunne matvarer</span></div>
+        </div>
       </div>
     </div>
 
-    <div class="fag-card">
-      <div class="fag-header">
-        <span class="fag-name">Engelsk</span>
-        <a class="fag-link" href="https://www.udir.no/lk20/eng01-05" target="_blank">↗ fagplan</a>
+    <!-- SEKSJON 3 -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">3</span>
+        <span class="section-title">Beskytte utstyr, personvern og informasjon</span>
       </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 2. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale ressurser i utforsking av engelsk språk</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 4. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale verktøy til å lese, lytte til og skrive tekster på engelsk</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 7. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale ressurser og andre hjelpemidler i språklæring</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 10. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale ressurser til å innhente informasjon og kommunisere på engelsk</div>
-      </div>
-    </div>
-
-    <div class="fag-card">
-      <div class="fag-header">
-        <span class="fag-name">KRLE</span>
-        <a class="fag-link" href="https://www.udir.no/lk20/rle01-03" target="_blank">↗ fagplan</a>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 4. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale ressurser i arbeid med faget</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 7. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale ressurser i arbeid med etikk og religion</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 10. trinn</div>
-        <div class="ingen">Ingen eksplisitte kompetansemål om bruk av digitale verktøy</div>
+      <div class="fag-rows">
+        <div class="fag-row">
+          <div class="fag-tag">Samfunnsfag <a href="https://www.udir.no/lk20/saf01-04" target="_blank">↗</a></div>
+          <div class="trinn">4. trinn</div>
+          <div class="km-item"><span class="km-dot"></span><span>Samtale om regler og normer for personvern, deling og beskyttelse av informasjon</span></div>
+          <div class="trinn" style="margin-top:6px">10. trinn</div>
+          <div class="km-item"><span class="km-dot"></span><span>Utforske egne digitale spor og retten til å få dem slettet</span></div>
+          <div class="km-item"><span class="km-dot"></span><span>Følge regler for personvern og opphavsrett i nettbasert kommunikasjon</span></div>
+        </div>
+        <div class="fag-row">
+          <div class="fag-tag practical">Kunst og håndverk <a href="https://www.udir.no/lk20/khv01-02" target="_blank">↗</a></div>
+          <div class="trinn">Alle trinn</div>
+          <div class="km-item"><span class="km-dot green"></span><span>Kjennskap til regler om opphavsrett og personvern ved bruk av egne og andres bilder, filmer og skapende arbeid</span></div>
+        </div>
+        <div class="fag-row">
+          <div class="fag-tag practical">Musikk <a href="https://www.udir.no/lk20/mus01-02" target="_blank">↗</a></div>
+          <div class="trinn">Alle trinn</div>
+          <div class="km-item"><span class="km-dot green"></span><span>Følge regler for opphavsrett i møte med egen og andres musikk</span></div>
+          <div class="km-item"><span class="km-dot green"></span><span>Utvise nettetikk i samhandling med andre</span></div>
+          <div class="fag-tag" style="margin-top:10px">KRLE <a href="https://www.udir.no/lk20/rle01-03" target="_blank">↗</a></div>
+          <div class="km-item"><span class="km-dot"></span><span>Etisk refleksjon over hvordan digitale ressurser brukes</span></div>
+        </div>
       </div>
     </div>
 
-    <div class="fag-card practical">
-      <div class="fag-header">
-        <span class="fag-name">Musikk</span>
-        <a class="fag-link" href="https://www.udir.no/lk20/mus01-02" target="_blank">↗ fagplan</a>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 4. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale verktøy i musikalsk skaping og komponering</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 7. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale verktøy til å skape, bearbeide og presentere musikk</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 10. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale verktøy i komponering og lydproduksjon</div>
-      </div>
-    </div>
-
-    <div class="fag-card practical">
-      <div class="fag-header">
-        <span class="fag-name">Kunst og håndverk</span>
-        <a class="fag-link" href="https://www.udir.no/lk20/khv01-02" target="_blank">↗ fagplan</a>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 4. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale verktøy i skapende arbeid</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 7. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale verktøy i design og bildebehandling</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 10. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale verktøy i design, tegning og formgiving</div>
-      </div>
-    </div>
-
-    <div class="fag-card practical">
-      <div class="fag-header">
-        <span class="fag-name">Mat og helse</span>
-        <a class="fag-link" href="https://www.udir.no/lk20/mhe01-02" target="_blank">↗ fagplan</a>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 4. trinn</div>
-        <div class="km"><span class="km-dot"></span>Bruke digitale ressurser til å finne informasjon om mat og helse</div>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Etter 7. og 10. trinn</div>
-        <div class="ingen">Ingen eksplisitte kompetansemål om bruk av digitale verktøy som redskap</div>
-      </div>
-    </div>
-
-    <div class="fag-card practical">
-      <div class="fag-header">
-        <span class="fag-name">Kroppsøving</span>
-        <a class="fag-link" href="https://www.udir.no/lk20/kro01-05" target="_blank">↗ fagplan</a>
-      </div>
-      <div class="trinn-group">
-        <div class="trinn-label">Alle trinn</div>
-        <div class="ingen">Ingen eksplisitte kompetansemål om bruk av digitale verktøy</div>
-      </div>
-    </div>
-
-    <div class="full-width" style="background:#FFF8E1; border:1px solid #E8A020; border-radius:8px; padding:12px 16px; font-size:12px; color:#5D3A00; line-height:1.65;">
-      <strong>Konklusjon for område 1:</strong> Alle fag forutsetter at elevene kan bruke digitale verktøy, men ingen fag eier opplæringen i selve verktøybruken. Kompetansemålene bruker formuleringer som «bruke digitale verktøy» uten å spesifisere hva elevene skal lære om verktøyene. Det grunnleggende håndverket — navigasjon, filstruktur, programvare, datasikkerhet — undervises av ingen.
+    <!-- KONKLUSJON -->
+    <div class="concl">
+      <strong>Konklusjon for område 1:</strong> Norsk har ansvaret for den fysiske bruken av tastatur og tekstoppsett, mens Matematikk og Naturfag tar for seg regneark, modellering og programmering. Engelsk og Kroppsøving lærer elevene å navigere og velge verktøy tilpasset situasjonen. Det tyngste ansvaret for å forstå reglene — personvern og opphavsrett — er lagt til <strong>Samfunnsfag</strong>, sterkt støttet av <strong>Kunst og håndverk</strong> og <strong>Musikk</strong>.<br><br>
+      <strong>Ingen fag eier selve verktøyopplæringen</strong> — navigasjon, filstruktur og datasikkerhet forutsettes kjent, men undervises av ingen.
     </div>
 
   </div>
