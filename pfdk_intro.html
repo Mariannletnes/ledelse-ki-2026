@@ -16,17 +16,7 @@
 
   .body { padding: 28px 32px; display: flex; flex-direction: column; gap: 22px; }
 
-  /* Avduking */
-  .reveal {
-    opacity: 0; visibility: hidden; transform: translateY(12px);
-    transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s linear 0.45s;
-  }
-  .reveal.visible {
-    opacity: 1; visibility: visible; transform: translateY(0);
-    transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s;
-  }
-
-  /* Modell + intro */
+  .hint { font-size: 10px; color: #9AA5B4; font-style: italic; }
   .model-row {
     display: grid; grid-template-columns: 260px 1fr; gap: 28px; align-items: center;
   }
@@ -92,7 +82,7 @@
   <div class="body">
 
     <!-- TRYKK 1: Modell + intro -->
-    <div class="model-row reveal" id="s1">
+    <div class="model-row">
       <a href="https://www.udir.no/kvalitet-og-kompetanse/digitalisering-skole/rammeverk-larerens-profesjonsfaglige-digitale-komp/" target="_blank">
         <img src="larerens_pfdk-modell-medtekst_750px_web-7.png" alt="PDC-modellen">
       </a>
@@ -105,7 +95,7 @@
     </div>
 
     <!-- TRYKK 2: De syv områdene -->
-    <div class="reveal" id="s2">
+    <div class="">
       <div class="areas-grid">
         <div class="area-pill">
           <div class="area-num">Område 1</div>
@@ -148,7 +138,7 @@
     </div>
 
     <!-- TRYKK 3: Problemstillingen -->
-    <div class="intro-box reveal" id="s3">
+    <div class="intro-box">
       <strong>Men — har dette rammeverket løst utfordringene?</strong> Ti år etter at PDC ble introdusert i norsk skole er tre grunnleggende problemer fortsatt uløste. Rammeverket beskriver <em>hva</em> kompetansen skal inneholde — men gir begrenset innsikt i <em>hvordan</em> den faktisk utvikles.
     </div>
 
@@ -156,40 +146,14 @@
 
   <div class="nav-bar">
     <a class="nav-btn secondary" href="teknologi_tabell_2.html">← Hva viste analysen?</a>
-    <span class="hint" id="hint">→ neste avduking &nbsp;·&nbsp; ← forrige &nbsp;·&nbsp; Esc → forsiden</span>
     <a class="nav-btn" href="pfdk_slide_1.html">Tre uløste problemer →</a>
   </div>
 
 </div>
 
 <script>
-  const steps = ['s1','s2','s3'];
-  let current = -1;
-
-  function next() {
-    if (current < steps.length - 1) {
-      current++;
-      document.getElementById(steps[current]).classList.add('visible');
-    }
-    if (current >= steps.length - 1) {
-      document.getElementById('hint').textContent = '';
-    }
-  }
-
-  function prev() {
-    if (current >= 0) {
-      document.getElementById(steps[current]).classList.remove('visible');
-      current--;
-    }
-  }
-
   document.addEventListener('keydown', function(e) {
-    if ([' ','Enter','ArrowRight','ArrowDown'].includes(e.key)) { e.preventDefault(); next(); }
-    if (['ArrowLeft','ArrowUp'].includes(e.key)) { e.preventDefault(); prev(); }
     if (e.key === 'Escape') window.location.href = 'index.html';
-  });
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('a') && !e.target.closest('button')) next();
   });
 </script>
 </body>
